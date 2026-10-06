@@ -782,7 +782,7 @@ if ($useLocalPackage) {
         $ManifestUrl = if ($Channel -eq "preview") {
             "https://herdr.dev/preview.json"
         } else {
-            "https://herdr.dev/latest.json"
+            "https://raw.githubusercontent.com/etimmyqq-lab/herdr-zh/zh-tw/distribution/latest.json"
         }
     }
 

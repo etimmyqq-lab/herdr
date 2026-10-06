@@ -2,7 +2,7 @@
 set -eu
 
 BIN="herdr"
-MANIFEST_URL="https://herdr.dev/latest.json"
+MANIFEST_URL="${HERDR_MANIFEST_URL:-https://raw.githubusercontent.com/etimmyqq-lab/herdr-zh/zh-tw/distribution/latest.json}"
 INSTALL_DIR="${HERDR_INSTALL_DIR:-$HOME/.local/bin}"
 
 main() {
