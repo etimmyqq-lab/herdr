@@ -121,7 +121,7 @@ fn announcement_from_manifest(
         .as_deref()
         .map(str::trim)
         .filter(|title| !title.is_empty())
-        .unwrap_or("announcement")
+        .unwrap_or("公告")
         .to_string();
 
     Some(ProductAnnouncement {
@@ -152,7 +152,7 @@ fn load_fake_for_current_version() -> Option<ProductAnnouncement> {
         .ok()
         .map(|value| value.trim().to_string())
         .filter(|value| !value.is_empty())
-        .unwrap_or_else(|| "product announcement preview".to_string());
+        .unwrap_or_else(|| "產品公告預覽".to_string());
 
     Some(ProductAnnouncement {
         version: crate::build_info::version(),

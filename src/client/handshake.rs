@@ -247,19 +247,19 @@ pub(super) fn do_handshake(
             return Err(ClientError::Protocol(protocol::FramingError::Io(
                 io::Error::new(
                     io::ErrorKind::InvalidData,
-                    "server does not support the stable Herdr endpoint protocol; update this machine",
+                    "伺服器不支援穩定版 herdr_zh 端點協定；請更新此電腦上的版本",
                 ),
             )));
         };
         if kind != ENDPOINT_WELCOME_KIND {
             return Err(ClientError::Protocol(protocol::FramingError::Io(
-                io::Error::new(io::ErrorKind::InvalidData, "expected endpoint welcome"),
+                io::Error::new(io::ErrorKind::InvalidData, "預期收到端點歡迎訊息"),
             )));
         }
         let welcome: EndpointServerWelcome = serde_json::from_str(&data).map_err(|error| {
             ClientError::Protocol(protocol::FramingError::Io(io::Error::new(
                 io::ErrorKind::InvalidData,
-                format!("invalid endpoint welcome: {error}"),
+                format!("無效的端點歡迎訊息：{error}"),
             )))
         })?;
         if let Some(error) = welcome.error {
@@ -276,7 +276,7 @@ pub(super) fn do_handshake(
         {
             return Err(ClientError::HandshakeRejected {
                 version: welcome.generation,
-                error: "server has no compatible endpoint core; update this machine".into(),
+                error: "伺服器沒有相容的端點核心；請更新此電腦上的版本".into(),
             });
         }
         info!(
@@ -308,7 +308,7 @@ pub(super) fn do_handshake(
             })
         }
         _ => Err(ClientError::Protocol(protocol::FramingError::Io(
-            io::Error::new(io::ErrorKind::InvalidData, "expected Welcome message"),
+            io::Error::new(io::ErrorKind::InvalidData, "預期收到 Welcome 訊息"),
         ))),
     }
 }

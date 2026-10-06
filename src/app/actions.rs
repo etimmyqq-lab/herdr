@@ -127,9 +127,9 @@ fn toast_agent_label(agent_label: &str) -> &str {
 
 fn toast_event_text(kind: ToastKind) -> &'static str {
     match kind {
-        ToastKind::NeedsAttention => "needs attention",
-        ToastKind::Finished => "finished",
-        ToastKind::UpdateInstalled => "updated",
+        ToastKind::NeedsAttention => "需要處理",
+        ToastKind::Finished => "已完成",
+        ToastKind::UpdateInstalled => "已更新",
     }
 }
 
@@ -1392,7 +1392,7 @@ impl AppState {
                 ) {
                     self.toast = Some(ToastNotification {
                         kind: ToastKind::UpdateInstalled,
-                        title: format!("v{version} available"),
+                        title: format!("v{version} 可用"),
                         context: crate::update::update_install_instruction(&install_command),
                         position: None,
                         target: None,
@@ -1424,7 +1424,7 @@ impl AppState {
                         .join(", ");
                     self.toast = Some(ToastNotification {
                         kind: ToastKind::UpdateInstalled,
-                        title: "Agent detection rules updated".to_string(),
+                        title: "代理偵測規則已更新".to_string(),
                         context: agent_list,
                         position: None,
                         target: None,

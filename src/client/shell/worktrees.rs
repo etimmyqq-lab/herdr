@@ -196,7 +196,7 @@ impl ClientShellState {
         let kind = match action {
             KeybindAction::NewWorktree | KeybindAction::OpenWorktree if linked => {
                 self.set_endpoint_error(
-                    "New and open worktree actions start from the repo parent workspace.",
+                    "新增與開啟工作樹動作必須從儲存庫父工作區開始。",
                 );
                 outcome.repaint = true;
                 return;
@@ -208,7 +208,7 @@ impl ClientShellState {
                 workspace_id: workspace_id.clone(),
             },
             KeybindAction::RemoveWorktree if !linked => {
-                self.set_endpoint_error("This workspace is not a Herdr-managed worktree checkout.");
+                self.set_endpoint_error("此工作區不是由 herdr_zh 管理的工作樹工作目錄。");
                 outcome.repaint = true;
                 return;
             }
@@ -252,7 +252,7 @@ impl ClientShellState {
         }
         let branch = create.branch.trim().to_owned();
         if branch.is_empty() {
-            create.error = Some("branch is required".to_owned());
+            create.error = Some("必須填寫分支".to_owned());
             outcome.repaint = true;
             return;
         }
@@ -420,7 +420,7 @@ impl ClientShellState {
                     })
                     .collect::<Vec<_>>();
                 if entries.is_empty() {
-                    self.set_endpoint_error("No Git worktrees found for this repo.");
+                    self.set_endpoint_error("此儲存庫找不到 Git 工作樹。");
                 } else {
                     self.overlay = Some(ClientShellOverlay::WorktreeOpen(
                         ClientWorktreeOpenOverlay {
@@ -456,7 +456,7 @@ impl ClientShellState {
                     ));
                 } else {
                     self.set_endpoint_error(
-                        "This workspace is not a Herdr-managed worktree checkout.",
+                        "此工作區不是由 herdr_zh 管理的工作樹工作目錄。",
                     );
                 }
                 true
@@ -522,7 +522,7 @@ impl ClientShellState {
                 Err(_),
             ) => true,
             (_, Ok(_)) => {
-                self.set_endpoint_error("endpoint returned an unexpected worktree result");
+                self.set_endpoint_error("端點傳回了未預期的工作樹結果");
                 true
             }
             (

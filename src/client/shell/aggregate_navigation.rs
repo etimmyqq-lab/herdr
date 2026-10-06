@@ -369,12 +369,12 @@ pub(super) fn navigator_rows(
                             match name.or(tab_name).or(title) {
                                 Some(label) => label.to_owned(),
                                 None if multiple_tabs => {
-                                    format!("{} · {}", agent_kind.unwrap_or("terminal"), tab.label)
+                                    format!("{} · {}", agent_kind.unwrap_or("終端機"), tab.label)
                                 }
                                 None => workspace.label.clone(),
                             }
                         } else {
-                            let pane_name = name.or(title).or(agent_kind).unwrap_or("terminal");
+                            let pane_name = name.or(title).or(agent_kind).unwrap_or("終端機");
                             match tab_name {
                                 Some(tab_name) if tab_name != pane_name => {
                                     format!("{tab_name} · {pane_name} · {}", index + 1)

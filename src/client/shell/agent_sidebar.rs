@@ -75,7 +75,7 @@ pub(super) fn render_agent_panel(
         snapshot
             .agent_view_label
             .as_ref()
-            .map(|_| " no matching agents"),
+            .map(|_| " 沒有相符的代理"),
         config,
         agent_scroll,
         hits,
@@ -113,14 +113,14 @@ pub(super) fn render_agent_panel_header(
         area.x,
         area.y + 1,
         area.width,
-        " agents",
+        " 代理",
         Style::default()
             .fg(config.palette.overlay0)
             .add_modifier(Modifier::BOLD),
     );
     let sort_label = agent_view_label.unwrap_or(match config.agent_panel_sort {
-        crate::config::AgentPanelSortConfig::Spaces => "grouped",
-        crate::config::AgentPanelSortConfig::Priority => "priority",
+        crate::config::AgentPanelSortConfig::Spaces => "群組",
+        crate::config::AgentPanelSortConfig::Priority => "優先順序",
     });
     let sort_width = display_width(sort_label).min(area.width as usize) as u16;
     let sort_rect = Rect::new(
@@ -374,11 +374,7 @@ pub(super) fn render_agent_row(
 }
 
 fn put_text(buffer: &mut Buffer, x: u16, y: u16, width: u16, text: &str, style: Style) {
-    for (offset, character) in text.chars().take(width as usize).enumerate() {
-        if let Some(cell) = buffer.cell_mut((x + offset as u16, y)) {
-            cell.set_char(character).set_style(style);
-        }
-    }
+    super::render::put_text(buffer, x, y, width, text, style);
 }
 
 fn display_width(text: &str) -> usize {
@@ -388,9 +384,9 @@ fn display_width(text: &str) -> usize {
 fn sidebar_status_text(status: crate::api::schema::AgentStatus) -> &'static str {
     use crate::api::schema::AgentStatus;
     match status {
-        AgentStatus::Blocked => "blocked",
-        AgentStatus::Done => "done",
-        AgentStatus::Working => "working",
-        AgentStatus::Idle | AgentStatus::Unknown => "idle",
+        AgentStatus::Blocked => "等待回應",
+        AgentStatus::Done => "完成",
+        AgentStatus::Working => "工作中",
+        AgentStatus::Idle | AgentStatus::Unknown => "閒置",
     }
 }

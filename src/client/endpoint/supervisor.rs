@@ -178,7 +178,7 @@ impl EndpointSupervisors {
                         endpoint_id: task_endpoint_id,
                         generation,
                         status: ClientEndpointStatus::Reconnecting,
-                        message: format!("endpoint connection task stopped unexpectedly: {error}"),
+                    message: format!("端點連線工作意外停止：{error}"),
                     },
                 };
                 if !shutdown.load(Ordering::Acquire) {
@@ -275,7 +275,7 @@ fn connect_once(
                 if error.kind() == std::io::ErrorKind::NotFound {
                     std::io::Error::new(
                         std::io::ErrorKind::ConnectionRefused,
-                        "Local is unavailable; start its server to reconnect",
+                        "本機不可用；啟動其伺服器以重新連線",
                     )
                 } else {
                     error
@@ -309,7 +309,7 @@ fn connect_once(
     if handshake.encoding != RenderEncoding::SemanticFrame {
         return Err(std::io::Error::new(
             std::io::ErrorKind::InvalidData,
-            "endpoint did not negotiate the semantic client shell",
+                        "端點未協商語意化用戶端 shell",
         ));
     }
     let negotiation = EndpointNegotiation::new(
@@ -321,7 +321,7 @@ fn connect_once(
     {
         return Err(std::io::Error::new(
             std::io::ErrorKind::Unsupported,
-            "this machine needs a server update before it can participate in multi-machine viewing",
+                        "此電腦的伺服器須先更新，才能參與多電腦檢視",
         ));
     }
     let reader = stream.try_clone()?;
@@ -353,7 +353,7 @@ fn handshake_error(error: crate::client::ClientError) -> std::io::Error {
         }
         ClientError::ServerShutdown { reason } => std::io::Error::new(
             std::io::ErrorKind::ConnectionAborted,
-            reason.unwrap_or_else(|| "server shut down during handshake".into()),
+        reason.unwrap_or_else(|| "伺服器在交握期間關閉".into()),
         ),
     }
 }

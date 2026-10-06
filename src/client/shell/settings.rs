@@ -304,7 +304,7 @@ impl ClientShellState {
                         }
                         Ok(_) => {
                             self.set_endpoint_error(
-                                "endpoint returned an unexpected integration list result",
+                                "端點傳回了未預期的整合清單結果",
                             );
                         }
                         Err(_) => {}
@@ -326,7 +326,7 @@ impl ClientShellState {
                         }) => settings.integration_messages.extend(details.messages),
                         Ok(_) => settings
                             .integration_messages
-                            .push("endpoint returned an unexpected integration result".into()),
+                            .push("端點傳回了未預期的整合結果".into()),
                         Err(error) => settings.integration_messages.push(error.message),
                     }
                     settings.installing_integrations = self.pending_integration_installs > 0;

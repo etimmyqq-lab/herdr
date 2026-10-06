@@ -6,9 +6,9 @@ pub(super) fn merged_config_diagnostic(
 ) -> Option<String> {
     match (local, endpoint) {
         (Some(local), Some(endpoint)) if local == endpoint => {
-            Some(format!("client + endpoint: {local}"))
+            Some(format!("用戶端 + 端點：{local}"))
         }
-        (Some(local), Some(endpoint)) => Some(format!("client: {local}\nendpoint: {endpoint}")),
+        (Some(local), Some(endpoint)) => Some(format!("用戶端：{local}\n端點：{endpoint}")),
         (Some(local), None) => Some(local.to_owned()),
         (None, Some(endpoint)) => Some(endpoint.to_owned()),
         (None, None) => None,
@@ -207,7 +207,7 @@ impl ClientShellConfig {
     ) -> Result<(), String> {
         let mut keybinds = match self.keybinding_source {
             ClientShellKeybindingSource::Endpoint => crate::config::keybindings_from_profile_toml(
-                profile.ok_or("endpoint did not publish its keybindings")?,
+                profile.ok_or("端點未提供其快捷鍵設定")?,
             )?,
             ClientShellKeybindingSource::RemoteLocal => return Ok(()),
             ClientShellKeybindingSource::Local => {
@@ -305,14 +305,14 @@ impl ClientShellConfig {
                 Err(keybind_diagnostics) => diagnostics.extend(
                     keybind_diagnostics
                         .into_iter()
-                        .map(|diagnostic| format!("{diagnostic}; kept current keybinds")),
+                        .map(|diagnostic| format!("{diagnostic}；保留目前的快捷鍵")),
                 ),
             }
         }
 
         if !invalid_section("ui") {
             if let Some(diagnostic) = config.invalid_sidebar_bounds_diagnostic() {
-                diagnostics.push(format!("{diagnostic}; keeping previous [ui] settings"));
+                diagnostics.push(format!("{diagnostic}；保留先前的 [ui] 設定"));
             } else {
                 let ui = &config.ui;
                 diagnostics.extend(ui.sound.diagnostics());

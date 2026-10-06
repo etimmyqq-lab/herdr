@@ -258,7 +258,7 @@ pub(super) fn render_expanded(
         workspace_area.x,
         workspace_area.y,
         workspace_area.width,
-        " machines",
+        " 機器",
         Style::default()
             .fg(palette.overlay0)
             .add_modifier(Modifier::BOLD),
@@ -518,7 +518,7 @@ pub(super) fn render_expanded(
 
     let footer_y = workspace_area.bottom().saturating_sub(1);
     if config.mouse_capture {
-        let label = format!(" new · {}", active_endpoint_label(state));
+        let label = format!(" 新增 · {}", active_endpoint_label(state));
         hits.new_workspace = Rect::new(
             workspace_area.x,
             footer_y,
@@ -545,7 +545,7 @@ pub(super) fn render_expanded(
             buffer,
             workspace_area,
             footer_y,
-            if attention { "● menu" } else { "menu" },
+            if attention { "● 選單" } else { "選單" },
             Style::default().fg(if attention {
                 palette.accent
             } else {
@@ -584,7 +584,7 @@ fn active_endpoint_label<'a>(state: &'a ShellRenderState<'_>) -> &'a str {
         .endpoints
         .iter()
         .find(|endpoint| &endpoint.endpoint_id == state.active_endpoint_id)
-        .map_or("Local", |endpoint| endpoint.label.as_str())
+    .map_or("本機", |endpoint| endpoint.label.as_str())
 }
 
 fn render_endpoint_row(
@@ -606,9 +606,9 @@ fn render_endpoint_row(
         state
     };
     let signal = if auth.required_for(endpoint) {
-        "! auth".to_owned()
+        "! 驗證".to_owned()
     } else if endpoint.status == ClientEndpointStatus::Attention {
-        "! error".to_owned()
+        "! 錯誤".to_owned()
     } else if endpoint.endpoint_id.is_local() {
         String::new()
     } else if state.is_empty() {

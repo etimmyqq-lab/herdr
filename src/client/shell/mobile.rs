@@ -94,7 +94,7 @@ fn render_header_status(
             area.x,
             area.y,
             area.width,
-            " no workspace",
+        " 沒有工作區",
             Style::default().fg(palette.text).bg(palette.panel_bg),
         );
         return;
@@ -168,7 +168,7 @@ fn render_header_button(
         );
     }
     let label_y = if area.height > 1 { area.y + 1 } else { area.y };
-    let label = "switch";
+    let label = "切換";
     let label_width = display_width(label);
     put_text(
         buffer,
@@ -204,11 +204,11 @@ fn render_header_button(
 
 fn mobile_endpoint_state(status: ClientEndpointStatus) -> &'static str {
     match status {
-        ClientEndpointStatus::Connecting => "connecting",
-        ClientEndpointStatus::Online => "online",
-        ClientEndpointStatus::Reconnecting => "reconnecting",
-        ClientEndpointStatus::Attention => "attention",
-        ClientEndpointStatus::Disabled => "disabled",
+        ClientEndpointStatus::Connecting => "連線中",
+        ClientEndpointStatus::Online => "已連線",
+        ClientEndpointStatus::Reconnecting => "重新連線中",
+        ClientEndpointStatus::Attention => "注意",
+        ClientEndpointStatus::Disabled => "已停用",
     }
 }
 
@@ -227,9 +227,9 @@ fn compact_tab_status(snapshot: &ClientShellSnapshot, workspace: &ClientShellWor
         .map(|tab| tab.label.as_str())
         .unwrap_or("1");
     if tabs.len() <= 1 {
-        format!("tab {label}")
+        format!("分頁 {label}")
     } else {
-        format!("tab {label} · {}/{}", active + 1, tabs.len())
+        format!("分頁 {label} · {}/{}", active + 1, tabs.len())
     }
 }
 
@@ -241,10 +241,10 @@ fn render_agent_summary(
 ) {
     use crate::api::schema::AgentStatus;
     let counts = [
-        (AgentStatus::Blocked, "blocked"),
-        (AgentStatus::Done, "done"),
-        (AgentStatus::Working, "working"),
-        (AgentStatus::Idle, "idle"),
+        (AgentStatus::Blocked, "等待回應"),
+        (AgentStatus::Done, "完成"),
+        (AgentStatus::Working, "工作中"),
+        (AgentStatus::Idle, "閒置"),
     ]
     .map(|(status, label)| {
         (
@@ -265,7 +265,7 @@ fn render_agent_summary(
             area.x,
             area.y,
             area.width,
-            " no agents",
+        " 沒有代理",
             Style::default()
                 .fg(config.palette.overlay1)
                 .bg(config.palette.panel_bg),
@@ -278,7 +278,7 @@ fn render_agent_summary(
             area.x,
             area.y,
             area.width,
-            " all idle",
+        " 全部閒置",
             Style::default()
                 .fg(config.palette.overlay1)
                 .bg(config.palette.panel_bg),
@@ -407,7 +407,7 @@ pub(super) fn render_mobile_switcher(
         area.x,
         area.y,
         close.x.saturating_sub(area.x),
-        " switch",
+        " 切換",
         Style::default()
             .fg(palette.text)
             .bg(palette.panel_bg)
@@ -551,7 +551,7 @@ fn render_close_button(buffer: &mut Buffer, area: Rect, palette: &Palette) {
         label_x,
         area.y,
         area.width.saturating_sub(1),
-        "close",
+        "關閉",
         Style::default()
             .fg(palette.overlay1)
             .bg(palette.surface0)
@@ -583,7 +583,7 @@ fn mobile_items(
     let palette = &config.palette;
     let mut items = Vec::new();
     if endpoints.len() > 1 {
-        items.push(MobileItem::section("machines", palette));
+    items.push(MobileItem::section("機器", palette));
         for endpoint in endpoints {
             let background = palette.panel_bg;
             let (symbol, state, color) = endpoint_status_presentation(endpoint.status, palette);
@@ -618,13 +618,13 @@ fn mobile_items(
     let agent_view_label = snapshot.agent_view_label.as_deref();
     if !agents.is_empty() || agent_view_label.is_some() {
         let title = agent_view_label
-            .map(|label| format!("agents · {label}"))
-            .unwrap_or_else(|| "agents".to_owned());
+            .map(|label| format!("代理 · {label}"))
+            .unwrap_or_else(|| "代理".to_owned());
         items.push(MobileItem::section(title, palette));
         if agents.is_empty() {
             items.push(MobileItem {
                 lines: vec![Line::from(Span::styled(
-                    "  no matching agents",
+        "  沒有相符的代理",
                     Style::default()
                         .fg(palette.overlay0)
                         .bg(palette.panel_bg)
@@ -652,7 +652,7 @@ fn mobile_items(
                 .as_deref()
                 .or(agent.name.as_deref())
                 .or(agent.agent.as_deref())
-                .unwrap_or("agent");
+        .unwrap_or("代理");
             let primary = workspace
                 .map(|workspace| workspace.label.as_str())
                 .unwrap_or(agent_label);
@@ -675,7 +675,7 @@ fn mobile_items(
                     .map(|(_, label)| label.clone())
                     .unwrap_or_else(|| {
                         if agent.agent_status == crate::api::schema::AgentStatus::Unknown {
-                            "idle".to_owned()
+        "閒置".to_owned()
                         } else {
                             status_key.to_owned()
                         }
@@ -747,9 +747,9 @@ fn mobile_items(
         }
     }
 
-    items.push(MobileItem::section("spaces", palette));
+    items.push(MobileItem::section("工作區", palette));
     items.push(MobileItem::action(
-        "  + new workspace",
+        "  + 新增工作區",
         ClientMobileTarget::NewWorkspace,
         palette,
     ));
@@ -796,7 +796,7 @@ fn mobile_items(
             } else {
                 &workspace.label
             };
-            let branch = workspace.branch.as_deref().unwrap_or("shell");
+    let branch = workspace.branch.as_deref().unwrap_or("終端機");
             let detail_prefix = if entry.indented {
                 if entry.last_child {
                     "       "
@@ -880,9 +880,9 @@ fn mobile_items(
     }
 
     if let Some(workspace_id) = snapshot.focused_workspace_id.as_deref() {
-        items.push(MobileItem::section("tabs", palette));
+    items.push(MobileItem::section("分頁", palette));
         items.push(MobileItem::action(
-            "  + new tab",
+        "  + 新增分頁",
             ClientMobileTarget::NewTab,
             palette,
         ));
@@ -900,7 +900,7 @@ fn mobile_items(
             let label = if tab.custom_label {
                 format!("{} · {}", index + 1, tab.label)
             } else {
-                format!("tab {}", tab.label)
+    format!("分頁 {}", tab.label)
             };
             let label = format!(
                 "  {}",
@@ -923,7 +923,7 @@ fn mobile_items(
         }
     }
 
-    items.push(MobileItem::section("menu", palette));
+    items.push(MobileItem::section("選單", palette));
     for (index, (label, _)) in super::global_menu::global_menu_items(snapshot)
         .into_iter()
         .enumerate()

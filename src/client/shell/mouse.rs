@@ -123,7 +123,7 @@ impl ClientShellState {
             Ok(_) => {
                 self.pane_scroll_queued.remove(&pane_id);
                 self.pane_scroll_targets.remove(&pane_id);
-                self.set_endpoint_error("endpoint returned an unexpected pane-scroll result");
+        self.set_endpoint_error("端點傳回非預期的窗格捲動結果");
                 true
             }
             Err(_) => {

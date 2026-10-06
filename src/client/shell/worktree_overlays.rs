@@ -12,7 +12,7 @@ pub(super) fn render_worktree_create_overlay(
         inner.x,
         inner.y,
         inner.width,
-        "new worktree",
+        "新增工作樹",
         Style::default()
             .fg(p.text)
             .bg(p.panel_bg)
@@ -23,7 +23,7 @@ pub(super) fn render_worktree_create_overlay(
         inner.x,
         inner.y + 2,
         inner.width,
-        " branch",
+        " 分支",
         Style::default().fg(p.overlay0).bg(p.panel_bg),
     );
     let input = Rect::new(inner.x, inner.y + 3, inner.width, 1);
@@ -39,7 +39,7 @@ pub(super) fn render_worktree_create_overlay(
         inner.x,
         inner.y + 5,
         inner.width,
-        " checkout",
+        " 工作目錄",
         Style::default().fg(p.overlay0).bg(p.panel_bg),
     );
     put_text(
@@ -56,7 +56,7 @@ pub(super) fn render_worktree_create_overlay(
             inner.x,
             inner.y + 8,
             inner.width,
-            " creating…",
+            " 正在建立…",
             Style::default().fg(p.accent).bg(p.panel_bg),
         );
     } else if let Some(error) = create.error.as_deref() {
@@ -76,7 +76,7 @@ pub(super) fn render_worktree_create_overlay(
     button(
         b,
         *primary,
-        " ↵ create and open ",
+        " ↵ 建立並開啟 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -85,7 +85,7 @@ pub(super) fn render_worktree_create_overlay(
     button(
         b,
         *cancel,
-        " esc cancel ",
+        " esc 取消 ",
         Style::default()
             .fg(p.text)
             .bg(p.surface0)
@@ -119,7 +119,7 @@ pub(super) fn render_worktree_open_overlay(
         inner.x,
         inner.y,
         inner.width,
-        "open worktree",
+        "開啟工作樹",
         Style::default()
             .fg(p.text)
             .bg(p.panel_bg)
@@ -137,7 +137,7 @@ pub(super) fn render_worktree_open_overlay(
         } else if !open.query.is_empty() {
             format!(" / {}", open.query)
         } else {
-            " / filter worktrees".to_owned()
+            " / 篩選工作樹".to_owned()
         },
         Style::default()
             .fg(if open.search_focused {
@@ -148,9 +148,9 @@ pub(super) fn render_worktree_open_overlay(
             .bg(p.panel_bg),
     );
     let count = if filtered.len() == open.entries.len() {
-        format!("{} checkouts", open.entries.len())
+        format!("{} 個工作目錄", open.entries.len())
     } else {
-        format!("{}/{} checkouts", filtered.len(), open.entries.len())
+        format!("{}/{} 個工作目錄", filtered.len(), open.entries.len())
     };
     let cursor = if open.search_focused {
         text_editor::render(
@@ -245,7 +245,7 @@ pub(super) fn render_worktree_open_overlay(
             body.x,
             body.y,
             body.width,
-            " no matching worktrees",
+            " 沒有相符的工作樹",
             Style::default().fg(p.overlay0).bg(p.panel_bg),
         );
     }
@@ -255,7 +255,7 @@ pub(super) fn render_worktree_open_overlay(
             inner.x,
             inner.bottom() - 3,
             inner.width,
-            " opening…",
+            " 正在開啟…",
             Style::default().fg(p.accent).bg(p.panel_bg),
         );
     } else if let Some(error) = open.error.as_deref() {
@@ -275,7 +275,7 @@ pub(super) fn render_worktree_open_overlay(
     button(
         b,
         *primary,
-        " ↵ open ",
+        " ↵ 開啟 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -284,7 +284,7 @@ pub(super) fn render_worktree_open_overlay(
     button(
         b,
         *cancel,
-        " esc cancel ",
+        " esc 取消 ",
         Style::default()
             .fg(p.text)
             .bg(p.surface0)
@@ -317,7 +317,7 @@ pub(super) fn render_worktree_remove_overlay(
         inner.x,
         inner.y,
         inner.width,
-        " delete worktree checkout?",
+        " 刪除工作樹工作目錄？",
         Style::default()
             .fg(p.red)
             .bg(p.panel_bg)
@@ -328,7 +328,7 @@ pub(super) fn render_worktree_remove_overlay(
         inner.x,
         inner.y + 1,
         inner.width,
-        " This removes the checkout folder:",
+        " 這會刪除工作目錄資料夾：",
         Style::default().fg(p.text).bg(p.panel_bg),
     );
     put_text(
@@ -344,7 +344,7 @@ pub(super) fn render_worktree_remove_overlay(
         inner.x,
         inner.y + 3,
         inner.width,
-        " The branch is not deleted. The Herdr workspace will close.",
+        " 不會刪除分支。herdr_zh 工作區將會關閉。",
         Style::default().fg(p.text).bg(p.panel_bg),
     );
     if remove.force_confirmation {
@@ -353,7 +353,7 @@ pub(super) fn render_worktree_remove_overlay(
             inner.x,
             inner.y + 4,
             inner.width,
-            " Dirty or untracked files will be permanently deleted.",
+            " 未提交或未追蹤的檔案將被永久刪除。",
             Style::default().fg(p.red).bg(p.panel_bg),
         );
     }
@@ -363,7 +363,7 @@ pub(super) fn render_worktree_remove_overlay(
             inner.x,
             inner.y + 5,
             inner.width,
-            " removing…",
+            " 正在刪除…",
             Style::default().fg(p.accent).bg(p.panel_bg),
         );
     } else if let Some(error) = remove.error.as_deref() {
@@ -384,9 +384,9 @@ pub(super) fn render_worktree_remove_overlay(
         b,
         *primary,
         if remove.force_confirmation {
-            " ↵ delete anyway "
+            " ↵ 仍要刪除 "
         } else {
-            " ↵ remove "
+            " ↵ 刪除 "
         },
         Style::default()
             .fg(contrast(p))
@@ -396,7 +396,7 @@ pub(super) fn render_worktree_remove_overlay(
     button(
         b,
         *cancel,
-        " esc cancel ",
+        " esc 取消 ",
         Style::default()
             .fg(p.text)
             .bg(p.surface0)

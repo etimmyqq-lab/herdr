@@ -861,7 +861,7 @@ impl App {
                 != self.startup_per_agent_delay
         {
             diagnostics.push(
-                "session.startup_per_agent_delay_ms changes require restarting Herdr; kept current setting"
+                "session.startup_per_agent_delay_ms 的變更需重新啟動 herdr_zh；已保留目前設定"
                     .into(),
             );
         }
@@ -872,7 +872,7 @@ impl App {
             && config.kitty_graphics_enabled() != self.state.kitty_graphics_enabled
         {
             diagnostics.push(
-                "terminal.kitty_graphics changes require restarting Herdr; kept current setting"
+                "terminal.kitty_graphics 的變更需重新啟動 herdr_zh；已保留目前設定"
                     .into(),
             );
         }
@@ -962,8 +962,8 @@ impl App {
             if notify_success {
                 self.state.toast = Some(crate::app::state::ToastNotification {
                     kind: crate::app::state::ToastKind::UpdateInstalled,
-                    title: "reloaded config".to_string(),
-                    context: "using config.toml".to_string(),
+                    title: "設定已重新載入".to_string(),
+                    context: "使用 config.toml".to_string(),
                     position: None,
                     target: None,
                 });
@@ -974,8 +974,8 @@ impl App {
             if notify_success {
                 self.state.toast = Some(crate::app::state::ToastNotification {
                     kind: crate::app::state::ToastKind::UpdateInstalled,
-                    title: "reloaded config".to_string(),
-                    context: "with warnings".to_string(),
+                    title: "設定已重新載入".to_string(),
+                    context: "包含警告".to_string(),
                     position: None,
                     target: None,
                 });

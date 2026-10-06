@@ -171,7 +171,7 @@ impl ClientShellState {
         };
         if !self.navigation_target_valid(&target) {
             self.receive_endpoint_unavailable(
-                "Workspace is no longer available; select a connected workspace".into(),
+                "工作區已無法使用；請選取已連線的工作區".into(),
             );
             outcome.repaint = true;
             return;

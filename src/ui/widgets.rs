@@ -2,6 +2,7 @@ use ratatui::{
     layout::{Constraint, Layout, Rect},
     style::Color,
 };
+use unicode_width::UnicodeWidthStr;
 
 use crate::app::state::Palette;
 
@@ -88,14 +89,15 @@ pub(crate) fn modal_stack_areas(
 }
 
 fn action_button_width(hint: Option<&str>, label: &str) -> u16 {
-    match hint {
-        Some(hint) => format!(" {hint} {label} ").chars().count() as u16,
-        None => format!(" {label} ").chars().count() as u16,
-    }
+    let text = match hint {
+        Some(hint) => format!(" {hint} {label} "),
+        None => format!(" {label} "),
+    };
+    u16::try_from(UnicodeWidthStr::width(text.as_str())).unwrap_or(u16::MAX)
 }
 
 pub(crate) fn close_button_rect(area: Rect) -> Rect {
-    let width = action_button_width(Some("esc"), "close");
+    let width = action_button_width(Some("esc"), "關閉");
     Rect::new(area.x + area.width.saturating_sub(width), area.y, width, 1)
 }
 
@@ -103,7 +105,7 @@ pub(crate) fn continue_button_rect(area: Rect) -> Rect {
     Rect::new(
         area.x,
         area.y,
-        action_button_width(Some("↵"), "continue"),
+        action_button_width(Some("↵"), "繼續"),
         1,
     )
 }

@@ -1896,10 +1896,10 @@ pub(crate) fn update_install_command() -> &'static str {
 pub(crate) fn update_install_instruction(install_command: &str) -> String {
     match install_command {
         HERDR_UPDATE_COMMAND => {
-            "detach, run `herdr update`, then run Herdr again to reconnect".to_string()
+            "卸離後執行 `herdr update`，再重新執行 herdr_zh 以重新連線".to_string()
         }
         HOMEBREW_UPDATE_COMMAND => {
-            "detach, run `brew update && brew upgrade herdr`, then run Herdr again to reconnect"
+            "卸離後執行 `brew update && brew upgrade herdr`，再重新執行 herdr_zh 以重新連線"
                 .to_string()
         }
         MISE_UPDATE_COMMAND => {
