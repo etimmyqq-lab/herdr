@@ -135,7 +135,7 @@ pub(super) fn render_mode_bar(
                     }
                     let footer = "  enter search  esc cancel";
                     let footer_width = if bar.width >= 50 {
-                        footer.len() as u16
+                        display_width(footer)
                     } else {
                         0
                     };

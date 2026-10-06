@@ -1063,13 +1063,13 @@ fn help_lines(
     );
     let key_width = groups
         .iter()
-        .flat_map(|(_, entries)| entries.iter().map(|(key, _)| key.chars().count()))
+        .flat_map(|(_, entries)| entries.iter().map(|(key, _)| display_width(key)))
         .max()
         .unwrap_or(8);
     if groups.is_empty() {
         let message = " no matching keybinds";
         return vec![(
-            message.chars().count(),
+            usize::from(display_width(message)),
             Line::from(Span::styled(
                 message,
                 Style::default().fg(palette.overlay1).bg(palette.panel_bg),
@@ -1080,7 +1080,7 @@ fn help_lines(
     let mut lines = Vec::new();
     for (group, entries) in groups {
         lines.push((
-            group.len() + 1,
+            usize::from(display_width(&format!(" {group}"))),
             Line::from(Span::styled(
                 format!(" {group}"),
                 Style::default()
@@ -1090,8 +1090,14 @@ fn help_lines(
             )),
         ));
         for (key, label) in entries {
-            let padded_key = format!(" {key:<key_width$} ");
-            let width = padded_key.chars().count() + label.chars().count();
+            let padded_key = format!(
+                " {key}{}",
+                " ".repeat(usize::from(
+                    key_width.saturating_sub(display_width(&key)).saturating_add(1),
+                )),
+            );
+            let width = usize::from(display_width(&padded_key))
+                + usize::from(display_width(label.as_ref()));
             lines.push((
                 width,
                 Line::from(vec![
