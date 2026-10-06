@@ -1,23 +1,42 @@
 {
-  "version": "0.9.300",
-  "notes": "herdr-zh 首次發行：以官方 herdr v0.9.3 為基礎的繁體中文（台灣）版。",
+  "version": "0.9.301",
+  "notes": "翻譯修正：快捷鍵說明的搜尋提示統一使用「快捷鍵」。",
   "protocol": 22,
   "endpoint_generation": 1,
   "assets": {
-    "linux-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.300/herdr-linux-x86_64",
-    "linux-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.300/herdr-linux-aarch64",
-    "macos-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.300/herdr-macos-x86_64",
-    "macos-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.300/herdr-macos-aarch64",
-    "windows-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.300/herdr-windows-x86_64.zip"
+    "linux-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-linux-x86_64",
+    "linux-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-linux-aarch64",
+    "macos-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-macos-x86_64",
+    "macos-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-macos-aarch64",
+    "windows-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-windows-x86_64.zip"
   },
   "sha256": {
-    "linux-x86_64": "dcc6228fa2911f5f399629d67c766f23bc39f7b8dbc7b1d301650bdbe5544bd3",
-    "linux-aarch64": "b12b2282950e08dba6b61df9cfe2c130de43666ed99e2250a279cc28e36a6954",
-    "macos-x86_64": "2c67031dd23a72e3849284be57f9b78848ab1f6b53fe7ee21bbd9432f6e3c5ff",
-    "macos-aarch64": "a8818f7ea99d62e9605ee2f56e2ee748bf56b1dcbfb29dd953112dbc45a17c8c",
-    "windows-x86_64": "035d3d6f303a52140bf37a7fc9c4af3569b8d5706275468a235cddf06a9b05ac"
+    "linux-x86_64": "6d0aeb527a488f62c901069e78887e4a97624a1832d92824905d462f97e589a6",
+    "linux-aarch64": "3e5afe3b1930be060bbcbae9b174c1f35a58fc1bcad2f13af39cf526b58faef5",
+    "macos-x86_64": "e60aa6f82777936c34010eeb608a40f0ef9af24d54065fdfa76d96205d75d387",
+    "macos-aarch64": "eddf5ac9b0c104e0edfffbcf3987b9938c200ac700843c390f066c58e79f7654",
+    "windows-x86_64": "36cc596ce2d48bfd3fe05af1059eb71c01c4630828f67b4cdeec62f85494f21c"
   },
   "releases": {
+    "0.9.301": {
+      "notes": "翻譯修正：快捷鍵說明的搜尋提示統一使用「快捷鍵」。",
+      "protocol": 22,
+      "endpoint_generation": 1,
+      "assets": {
+        "linux-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-linux-x86_64",
+        "linux-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-linux-aarch64",
+        "macos-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-macos-x86_64",
+        "macos-aarch64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-macos-aarch64",
+        "windows-x86_64": "https://github.com/etimmyqq-lab/herdr-zh/releases/download/zh-v0.9.301/herdr-windows-x86_64.zip"
+      },
+      "sha256": {
+        "linux-x86_64": "6d0aeb527a488f62c901069e78887e4a97624a1832d92824905d462f97e589a6",
+        "linux-aarch64": "3e5afe3b1930be060bbcbae9b174c1f35a58fc1bcad2f13af39cf526b58faef5",
+        "macos-x86_64": "e60aa6f82777936c34010eeb608a40f0ef9af24d54065fdfa76d96205d75d387",
+        "macos-aarch64": "eddf5ac9b0c104e0edfffbcf3987b9938c200ac700843c390f066c58e79f7654",
+        "windows-x86_64": "36cc596ce2d48bfd3fe05af1059eb71c01c4630828f67b4cdeec62f85494f21c"
+      }
+    },
     "0.9.300": {
       "notes": "herdr-zh 首次發行：以官方 herdr v0.9.3 為基礎的繁體中文（台灣）版。",
       "protocol": 22,
