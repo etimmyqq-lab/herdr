@@ -56,7 +56,9 @@ def main() -> None:
         and all(url.startswith(f"https://github.com/{repo}/") for url in release["assets"].values())
     }
     manifest = {"version": version, **entry, "releases": {version: entry, **ours}}
-    path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
+    )
     print(f"wrote {path}: {version}, {len(ours)} earlier release(s) kept")
 
 
