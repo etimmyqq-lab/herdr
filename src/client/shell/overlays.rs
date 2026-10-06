@@ -1157,7 +1157,7 @@ fn render_help_overlay(
         &if h.search_focused {
             " / ".to_owned()
         } else {
-            " / 按下 / 依命令或快速鍵篩選".to_owned()
+            " / 按下 / 依命令或快捷鍵篩選".to_owned()
         },
         Style::default()
             .fg(if h.search_focused { p.text } else { p.overlay0 })
