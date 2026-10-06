@@ -162,7 +162,7 @@ pub(super) fn render_settings_overlay(
             render_choice_section(
                 buffer,
                 content,
-                "代理狀態指示器",
+                "代理狀態指示燈",
                 "選擇以彩色圓點或不同符號表示各個狀態",
                 &["彩色圓點  ● ● ● ○ ·", "不同符號  × ◐ ✓ ○ ·"],
                 settings.selected,
@@ -186,8 +186,8 @@ pub(super) fn render_settings_overlay(
             render_choice_section(
                 buffer,
                 content,
-                "通知彈出視窗",
-                "選擇背景通知彈出視窗顯示的位置",
+                "提示訊息",
+                "選擇背景提示訊息顯示的位置",
                 &["關閉", "在 herdr 內", "透過終端機", "透過系統"],
                 settings.selected,
                 palette,

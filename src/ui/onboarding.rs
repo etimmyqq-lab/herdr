@@ -9,7 +9,7 @@ pub(crate) const ONBOARDING_DESCRIPTION: [&str; 3] = [
 ];
 pub(crate) const ONBOARDING_PREFIX_SUFFIX: &str = " 進入前綴模式 · ";
 pub(crate) const ONBOARDING_HELP_LABEL: &str = "?";
-pub(crate) const ONBOARDING_HELP_SUFFIX: &str = " 顯示按鍵綁定與設定";
+pub(crate) const ONBOARDING_HELP_SUFFIX: &str = " 顯示快捷鍵與設定";
 pub(crate) const ONBOARDING_NEXT: &str =
     "  接下來：安裝選用的代理整合，以取得更可靠的狀態";
 

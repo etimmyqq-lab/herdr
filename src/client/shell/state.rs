@@ -402,7 +402,7 @@ impl ClientSettingsSection {
     pub(super) fn label(self) -> &'static str {
         match self {
             Self::Theme => "主題",
-            Self::Indicators => "指示器",
+            Self::Indicators => "指示燈",
             Self::Sound => "音效",
             Self::Toast => "提示",
             Self::Integrations => "整合",

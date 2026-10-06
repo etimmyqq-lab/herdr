@@ -241,7 +241,7 @@ fn render_agent_summary(
 ) {
     use crate::api::schema::AgentStatus;
     let counts = [
-        (AgentStatus::Blocked, "受阻"),
+        (AgentStatus::Blocked, "等待回應"),
         (AgentStatus::Done, "完成"),
         (AgentStatus::Working, "工作中"),
         (AgentStatus::Idle, "閒置"),

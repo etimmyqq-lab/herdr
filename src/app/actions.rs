@@ -1442,7 +1442,7 @@ impl AppState {
                         .join(", ");
                     self.toast = Some(ToastNotification {
                         kind: ToastKind::UpdateInstalled,
-                        title: "代理程式偵測規則已更新".to_string(),
+                        title: "代理偵測規則已更新".to_string(),
                         context: agent_list,
                         position: None,
                         target: None,

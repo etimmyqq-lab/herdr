@@ -28,7 +28,7 @@ pub(super) fn global_menu_items(
             ClientGlobalMenuAction::Binding(crate::input::KeybindAction::Settings),
         ),
         (
-            "按鍵綁定",
+            "快捷鍵",
             ClientGlobalMenuAction::Binding(crate::input::KeybindAction::Help),
         ),
         (

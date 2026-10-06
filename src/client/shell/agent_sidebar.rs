@@ -388,7 +388,7 @@ fn display_width(text: &str) -> usize {
 fn sidebar_status_text(status: crate::api::schema::AgentStatus) -> &'static str {
     use crate::api::schema::AgentStatus;
     match status {
-        AgentStatus::Blocked => "受阻",
+        AgentStatus::Blocked => "等待回應",
         AgentStatus::Done => "完成",
         AgentStatus::Working => "工作中",
         AgentStatus::Idle | AgentStatus::Unknown => "閒置",

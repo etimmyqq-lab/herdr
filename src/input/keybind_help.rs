@@ -70,7 +70,7 @@ pub(crate) fn keybind_help_groups(
             "全域",
             vec![
                 entry(crate::config::format_prefix_combos(prefixes), "前綴模式"),
-                entry(binding_label(&keybinds.help), "按鍵綁定"),
+                entry(binding_label(&keybinds.help), "快捷鍵"),
                 entry(binding_label(&keybinds.settings), "設定"),
                 entry(binding_label(&keybinds.detach), "中斷連線"),
                 entry(binding_label(&keybinds.reload_config), "重新載入設定"),
@@ -159,7 +159,7 @@ pub(crate) fn keybind_help_groups(
                 ),
                 entry(binding_label(&keybinds.close_pane), "關閉窗格"),
                 entry(binding_label(&keybinds.rename_pane), "重新命名窗格"),
-                entry(binding_label(&keybinds.edit_scrollback), "編輯捲動回溯"),
+                entry(binding_label(&keybinds.edit_scrollback), "編輯捲動記錄"),
                 entry(binding_label(&keybinds.clear_pane), "清除窗格"),
                 entry(binding_label(&keybinds.copy_mode), "複製模式"),
                 entry(binding_label(&keybinds.zoom), "最大化窗格"),

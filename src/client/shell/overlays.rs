@@ -737,7 +737,7 @@ fn render_navigator_overlay(
         format!(
             " / {}",
             match f {
-                ClientNavigatorFilter::Blocked => "受阻",
+                ClientNavigatorFilter::Blocked => "等待回應",
                 ClientNavigatorFilter::Working => "工作中",
                 ClientNavigatorFilter::Idle => "閒置",
                 ClientNavigatorFilter::Done => "完成",
@@ -1067,7 +1067,7 @@ fn help_lines(
         .max()
         .unwrap_or(8);
     if groups.is_empty() {
-        let message = " 沒有相符的按鍵綁定";
+        let message = " 沒有相符的快捷鍵";
         return vec![(
             usize::from(display_width(message)),
             Line::from(Span::styled(
@@ -1138,7 +1138,7 @@ fn render_help_overlay(
         i.x,
         i.y,
         i.width,
-        "按鍵綁定",
+        "快捷鍵",
         Style::default()
             .fg(p.text)
             .bg(p.panel_bg)
