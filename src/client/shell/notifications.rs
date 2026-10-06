@@ -75,15 +75,15 @@ pub(super) fn render_mobile_notification_banner(
     let title = match event.kind {
         SemanticNotificationKind::NeedsAttention => event
             .title
-            .strip_suffix(" needs attention")
-            .map(|agent| format!("{agent} waiting"))
+        .strip_suffix(" needs attention")
+        .map(|agent| format!("{agent} 等待處理"))
             .unwrap_or_else(|| event.title.clone()),
         SemanticNotificationKind::Finished => event
             .title
-            .strip_suffix(" finished")
-            .map(|agent| format!("{agent} done"))
-            .unwrap_or_else(|| event.title.clone()),
-        SemanticNotificationKind::UpdateInstalled => "update ready".to_owned(),
+        .strip_suffix(" finished")
+        .map(|agent| format!("{agent} 已完成"))
+        .unwrap_or_else(|| event.title.clone()),
+        SemanticNotificationKind::UpdateInstalled => "更新已就緒".to_owned(),
         SemanticNotificationKind::Custom => event.title.clone(),
     };
     let dot_color = match event.kind {

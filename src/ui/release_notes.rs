@@ -4,6 +4,7 @@ use ratatui::{
     text::{Line, Span},
     widgets::{Paragraph, Wrap},
 };
+use unicode_width::UnicodeWidthStr;
 
 use crate::app::state::{Palette, ProductAnnouncementState, ReleaseNotesState};
 
@@ -22,21 +23,21 @@ fn release_notes_inline_spans<'a>(
     while let Some(start) = remaining.find('`') {
         let (before, after_start) = remaining.split_at(start);
         if !before.is_empty() {
-            width += before.chars().count();
+            width += UnicodeWidthStr::width(before);
             spans.push(Span::styled(before.to_string(), base_style));
         }
 
         let after_start = &after_start[1..];
         let Some(end) = after_start.find('`') else {
             let literal = format!("`{after_start}");
-            width += literal.chars().count();
+            width += UnicodeWidthStr::width(literal.as_str());
             spans.push(Span::styled(literal, base_style));
             remaining = "";
             break;
         };
 
         let (code, after_end) = after_start.split_at(end);
-        width += code.chars().count();
+        width += UnicodeWidthStr::width(code);
         if !code.is_empty() {
             // Keep short config examples together when Paragraph wraps.
             // Snippets like `new_tab = "prefix+c"` read poorly when they
@@ -52,7 +53,7 @@ fn release_notes_inline_spans<'a>(
     }
 
     if !remaining.is_empty() {
-        width += remaining.chars().count();
+        width += UnicodeWidthStr::width(remaining);
         spans.push(Span::styled(remaining.to_string(), base_style));
     }
 
@@ -83,7 +84,7 @@ pub(crate) fn release_notes_lines<'a>(body: &'a str, p: &Palette) -> Vec<(usize,
             let code_bg = p.surface1;
             let gutter_style = Style::default().fg(p.accent).bg(code_bg);
             let code_style = Style::default().fg(p.text).bg(code_bg);
-            let width = 2 + trimmed.chars().count();
+            let width = 2 + UnicodeWidthStr::width(trimmed);
             let mut spans = vec![
                 Span::styled("▏", gutter_style),
                 Span::styled(" ", code_style),
@@ -106,7 +107,7 @@ pub(crate) fn release_notes_lines<'a>(body: &'a str, p: &Palette) -> Vec<(usize,
                 lines.push((0, Line::raw("")));
                 continue;
             }
-            let width = 1 + text.chars().count();
+            let width = 1 + UnicodeWidthStr::width(text.as_str());
             lines.push((
                 width,
                 Line::from(vec![
@@ -158,14 +159,14 @@ fn release_notes_preview_line_entries<'a>(
 
     vec![
         (
-            15,
+            11,
             Line::from(vec![
                 Span::raw(" "),
                 Span::styled(
                     "●",
                     Style::default().fg(p.accent).add_modifier(Modifier::BOLD),
                 ),
-                Span::styled(" update ready", title_style),
+                Span::styled(" 更新已就緒", title_style),
             ]),
         ),
         (instruction_width + 1, Line::from(instruction_spans)),

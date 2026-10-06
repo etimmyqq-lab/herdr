@@ -37,10 +37,10 @@ pub(super) fn endpoint_lease(
 ) -> Result<EndpointLease, String> {
     let connection = endpoints
         .connection(endpoint_id)
-        .ok_or_else(|| "endpoint connection is unavailable".to_owned())?;
+        .ok_or_else(|| "端點連線不可用".to_owned())?;
     let (boot_id, minimum_revision) = shell
         .endpoint_snapshot_identity(endpoint_id, connection.generation)
-        .ok_or_else(|| "endpoint metadata is not ready for this connection".to_owned())?;
+        .ok_or_else(|| "此連線的端點中繼資料尚未備妥".to_owned())?;
     Ok(EndpointLease {
         endpoint_id: endpoint_id.clone(),
         generation: connection.generation,
@@ -81,16 +81,16 @@ pub(super) fn coherent_completion_surface(
     geometry: crate::protocol::ClientSurfaceSize,
 ) -> Result<crate::protocol::PaneSurfaceFrame, String> {
     let acknowledgement_revision = acknowledgement_revision.ok_or_else(|| {
-        "endpoint activation completed without a surface acknowledgement".to_owned()
+            "端點啟用完成時未收到介面確認".to_owned()
     })?;
     let surface = evidence
         .surface
         .clone()
-        .ok_or_else(|| "endpoint activation completed without a surface".to_owned())?;
+        .ok_or_else(|| "端點啟用完成時沒有介面".to_owned())?;
     if surface.projection_revision < acknowledgement_revision
         || !surface_matches_geometry(&surface, geometry)
     {
-        return Err("endpoint activation lost its acknowledged surface evidence".into());
+        return Err("端點啟用遺失已確認的介面證明".into());
     }
     if !shell.endpoint_snapshot_matches(
         &lease.endpoint_id,
@@ -98,7 +98,7 @@ pub(super) fn coherent_completion_surface(
         &lease.boot_id,
         surface.projection_revision,
     ) {
-        return Err("endpoint activation lost its coherent snapshot/surface pair".into());
+        return Err("端點啟用遺失一致的快照／介面配對".into());
     }
     Ok(surface)
 }
@@ -129,12 +129,12 @@ pub(super) fn send_surface_activation(
     focused: bool,
 ) -> Result<(), String> {
     if endpoints.send_to(&target.endpoint_id, resize) != EndpointSendOutcome::Sent {
-        return Err("endpoint resize could not be sent".into());
+        return Err("無法傳送端點大小調整要求".into());
     }
     let request = surface_interest_request(&target.boot_id, request_id, true)
         .map_err(|error| error.to_string())?;
     if endpoints.send_to(&target.endpoint_id, &request) != EndpointSendOutcome::Sent {
-        return Err("endpoint activation could not be sent".into());
+        return Err("無法傳送端點啟用要求".into());
     }
     // Inactive endpoints reject focus events. Activate first, then establish the host baseline
     // on the same ordered transport before navigation or presentation can commit.
@@ -143,7 +143,7 @@ pub(super) fn send_surface_activation(
         &crate::protocol::ClientMessage::ClientShellFocus { focused },
     ) != EndpointSendOutcome::Sent
     {
-        return Err("endpoint focus baseline could not be sent".into());
+        return Err("無法傳送端點焦點基準要求".into());
     }
     Ok(())
 }
@@ -164,7 +164,7 @@ pub(super) fn surface_set_revision(
             active,
             projection_revision,
         } if *active == expected_active => Ok(*projection_revision),
-        _ => Err("surface activation returned an invalid acknowledgement".into()),
+        _ => Err("介面啟用傳回無效確認".into()),
     }
 }
 
@@ -182,7 +182,7 @@ pub(super) fn focus_request(
             if boot_id != expected {
                 return Err(std::io::Error::new(
                     std::io::ErrorKind::InvalidInput,
-                    "notification target restarted",
+                    "通知目標已重新啟動",
                 ));
             }
             crate::api::schema::Method::PaneFocus(crate::api::schema::PaneTarget {

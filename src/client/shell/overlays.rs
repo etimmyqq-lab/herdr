@@ -354,9 +354,9 @@ fn render_release_notes_overlay(
         subtitle_area.y,
         subtitle_area.width,
         if notes.preview {
-            "update ready"
+            "更新已就緒"
         } else {
-            "what's new in this release"
+            "此版本的新內容"
         },
         base.fg(p.overlay1),
     );
@@ -369,7 +369,7 @@ fn render_release_notes_overlay(
     button(
         b,
         close,
-        " esc close ",
+        " esc 關閉 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -398,10 +398,10 @@ fn render_release_notes_overlay(
 
     if let Some(footer_area) = stack.footer {
         let footer_line = ratatui::text::Line::from(vec![
-            ratatui::text::Span::styled(" scroll ", base.fg(p.overlay0)),
-            ratatui::text::Span::styled("wheel ↑↓", base.fg(p.text)),
+            ratatui::text::Span::styled(" 捲動 ", base.fg(p.overlay0)),
+            ratatui::text::Span::styled("滾輪 ↑↓", base.fg(p.text)),
             ratatui::text::Span::styled("  ·  ", base.fg(p.overlay0)),
-            ratatui::text::Span::styled("close", base.fg(p.overlay0)),
+            ratatui::text::Span::styled("關閉", base.fg(p.overlay0)),
             ratatui::text::Span::styled(" esc / enter ", base.fg(p.text)),
         ]);
         ratatui::widgets::Widget::render(
@@ -464,9 +464,9 @@ fn render_product_announcement_overlay(
         base.fg(p.text).add_modifier(Modifier::BOLD),
     );
     let subtitle = if announcement.preview {
-        "product announcement preview"
+            "產品公告預覽"
     } else {
-        "product announcement"
+            "產品公告"
     };
     put_text(
         b,
@@ -485,7 +485,7 @@ fn render_product_announcement_overlay(
     button(
         b,
         close,
-        " esc close ",
+        " esc 關閉 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -514,10 +514,10 @@ fn render_product_announcement_overlay(
 
     if let Some(footer_area) = stack.footer {
         let footer_line = ratatui::text::Line::from(vec![
-            ratatui::text::Span::styled(" scroll ", base.fg(p.overlay0)),
-            ratatui::text::Span::styled("wheel ↑↓", base.fg(p.text)),
+            ratatui::text::Span::styled(" 捲動 ", base.fg(p.overlay0)),
+            ratatui::text::Span::styled("滾輪 ↑↓", base.fg(p.text)),
             ratatui::text::Span::styled("  ·  ", base.fg(p.overlay0)),
-            ratatui::text::Span::styled("close", base.fg(p.overlay0)),
+            ratatui::text::Span::styled("關閉", base.fg(p.overlay0)),
             ratatui::text::Span::styled(" esc / enter ", base.fg(p.text)),
         ]);
         ratatui::widgets::Widget::render(
@@ -627,7 +627,7 @@ fn render_onboarding_overlay(
     button(
         b,
         primary,
-        " ↵ continue ",
+        " ↵ 繼續 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -674,7 +674,7 @@ fn render_rename_overlay(
     button(
         b,
         *save,
-        " ↵ save ",
+        " ↵ 儲存 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.accent)
@@ -684,8 +684,8 @@ fn render_rename_overlay(
         .fg(p.text)
         .bg(p.surface0)
         .add_modifier(Modifier::BOLD);
-    button(b, *clear, " ^c clear ", n);
-    button(b, *cancel, " esc cancel ", n);
+    button(b, *clear, " ^c 清除 ", n);
+    button(b, *cancel, " esc 取消 ", n);
     Some(OverlayRender {
         area: q,
         primary: *save,
@@ -727,7 +727,7 @@ fn render_navigator_overlay(
         q.x + 2,
         q.y,
         q.width.saturating_sub(4),
-        " Go to ",
+        " 前往 ",
         Style::default().fg(p.accent).bg(p.panel_bg),
     );
     let rows = super::aggregate_navigation::navigator_rows(endpoints, active_endpoint_id, n);
@@ -737,14 +737,14 @@ fn render_navigator_overlay(
         format!(
             " / {}",
             match f {
-                ClientNavigatorFilter::Blocked => "blocked",
-                ClientNavigatorFilter::Working => "working",
-                ClientNavigatorFilter::Idle => "idle",
-                ClientNavigatorFilter::Done => "done",
+                ClientNavigatorFilter::Blocked => "受阻",
+                ClientNavigatorFilter::Working => "工作中",
+                ClientNavigatorFilter::Idle => "閒置",
+                ClientNavigatorFilter::Done => "完成",
             }
         )
     } else if n.query.is_empty() {
-        " / search agents and terminals".to_owned()
+        " / 搜尋代理與終端機".to_owned()
     } else {
         format!(" / {}", n.query)
     };
@@ -755,9 +755,9 @@ fn render_navigator_overlay(
     let count = format!(
         "{terminal_count} {}",
         if terminal_count == 1 {
-            "terminal"
+            "個終端機"
         } else {
-            "terminals"
+            "個終端機"
         }
     );
     put_text(
@@ -823,7 +823,7 @@ fn render_navigator_overlay(
             body.x,
             body.y,
             body.width,
-            " No matching agents or terminals",
+            " 沒有相符的代理或終端機",
             Style::default().fg(p.overlay0).bg(p.panel_bg),
         );
     }
@@ -943,7 +943,7 @@ fn render_navigator_overlay(
                     rect.right() - columns + 1,
                     rect.y,
                     11,
-                    r.agent.as_deref().unwrap_or("terminal"),
+                    r.agent.as_deref().unwrap_or("終端機"),
                     meta_style,
                 );
             }
@@ -956,7 +956,7 @@ fn render_navigator_overlay(
                     if r.agent.is_some() {
                         status_text(status)
                     } else {
-                        "shell"
+                        "殼層"
                     },
                     meta_style,
                 );
@@ -1027,9 +1027,9 @@ fn render_navigator_overlay(
         i.bottom() - 1,
         i.width,
         if n.search_focused {
-            " search type · move ↑↓/ctrl+n/p · open enter · back esc"
+            " 輸入搜尋 · 移動 ↑↓/ctrl+n/p · 開啟 enter · 返回 esc"
         } else {
-            " ↑↓/j/k rows · ←→ workspace · / search · a/b/w/i/d filter · enter open · esc close"
+            " ↑↓/j/k 列 · ←→ 工作區 · / 搜尋 · a/b/w/i/d 篩選 · enter 開啟 · esc 關閉"
         },
         Style::default().fg(p.overlay0).bg(p.panel_bg),
     );
@@ -1067,7 +1067,7 @@ fn help_lines(
         .max()
         .unwrap_or(8);
     if groups.is_empty() {
-        let message = " no matching keybinds";
+        let message = " 沒有相符的按鍵綁定";
         return vec![(
             usize::from(display_width(message)),
             Line::from(Span::styled(
@@ -1138,7 +1138,7 @@ fn render_help_overlay(
         i.x,
         i.y,
         i.width,
-        "keybinds",
+        "按鍵綁定",
         Style::default()
             .fg(p.text)
             .bg(p.panel_bg)
@@ -1149,9 +1149,9 @@ fn render_help_overlay(
         b,
         close,
         if h.search_focused {
-            " esc back "
+            " esc 返回 "
         } else {
-            " esc close "
+            " esc 關閉 "
         },
         Style::default()
             .fg(contrast(p))
@@ -1167,7 +1167,7 @@ fn render_help_overlay(
         &if h.search_focused {
             " / ".to_owned()
         } else {
-            " / press / to filter by command or shortcut".to_owned()
+            " / 按下 / 依命令或快速鍵篩選".to_owned()
         },
         Style::default()
             .fg(if h.search_focused { p.text } else { p.overlay0 })
@@ -1242,9 +1242,9 @@ fn render_help_overlay(
         i.bottom() - 1,
         i.width,
         if h.search_focused {
-            " edit ←→/home/end · kill ^u/^k · yank ^y · scroll ↑↓ · back esc"
+            " 編輯 ←→/home/end · 刪除 ^u/^k · 複製 ^y · 捲動 ↑↓ · 返回 esc"
         } else {
-            " search / · scroll j/k/↑↓/pgup/pgdn · close esc/enter"
+            " 搜尋 / · 捲動 j/k/↑↓/pgup/pgdn · 關閉 esc/enter"
         },
         Style::default().fg(p.overlay0).bg(p.panel_bg),
     );
@@ -1292,7 +1292,7 @@ fn render_confirm_close_overlay(
     button(
         b,
         *ok,
-        " ↵ confirm ",
+        " ↵ 確認 ",
         Style::default()
             .fg(contrast(p))
             .bg(p.red)
@@ -1301,7 +1301,7 @@ fn render_confirm_close_overlay(
     button(
         b,
         *cancel,
-        " esc cancel ",
+        " esc 取消 ",
         Style::default()
             .fg(p.text)
             .bg(p.surface0)

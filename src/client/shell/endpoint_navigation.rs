@@ -72,7 +72,7 @@ impl ClientShellState {
             });
         } else {
             let label = self.endpoint_label(&endpoint_id).to_owned();
-            self.receive_endpoint_unavailable(format!("{label} is not ready"));
+            self.receive_endpoint_unavailable(format!("{label} 尚未就緒"));
             outcome.repaint = true;
         }
         true
@@ -235,7 +235,7 @@ impl ClientShellState {
         let online = self.endpoint_is_online(&endpoint_id);
         if !online && !endpoint_id.is_local() {
             let label = self.endpoint_label(&endpoint_id).to_owned();
-            self.receive_endpoint_unavailable(format!("{label} is not ready"));
+            self.receive_endpoint_unavailable(format!("{label} 尚未就緒"));
             outcome.repaint = true;
             return false;
         }
@@ -265,7 +265,7 @@ impl ClientShellState {
         let online = self.endpoint_is_online(&endpoint_id);
         if !online && !endpoint_id.is_local() {
             let label = self.endpoint_label(&endpoint_id).to_owned();
-            self.receive_endpoint_unavailable(format!("{label} is not ready"));
+            self.receive_endpoint_unavailable(format!("{label} 尚未就緒"));
             outcome.repaint = true;
             return false;
         }

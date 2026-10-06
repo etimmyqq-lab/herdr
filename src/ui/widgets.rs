@@ -97,7 +97,7 @@ fn action_button_width(hint: Option<&str>, label: &str) -> u16 {
 }
 
 pub(crate) fn close_button_rect(area: Rect) -> Rect {
-    let width = action_button_width(Some("esc"), "close");
+    let width = action_button_width(Some("esc"), "關閉");
     Rect::new(area.x + area.width.saturating_sub(width), area.y, width, 1)
 }
 
@@ -105,7 +105,7 @@ pub(crate) fn continue_button_rect(area: Rect) -> Rect {
     Rect::new(
         area.x,
         area.y,
-        action_button_width(Some("↵"), "continue"),
+        action_button_width(Some("↵"), "繼續"),
         1,
     )
 }

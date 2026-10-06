@@ -60,7 +60,7 @@ pub fn run_terminal_session_control(
                         return;
                     }
                 }
-                Err(err) => eprintln!("herdr: terminal session control input ignored: {err}"),
+                Err(err) => eprintln!("herdr：已忽略終端機工作階段控制輸入：{err}"),
             }
         }
         let _ = write_to_server(&mut write_stream, &ClientMessage::Detach);
@@ -105,7 +105,7 @@ fn connect_terminal_session_stream(
         Ok(handshake) if handshake.encoding == RenderEncoding::TerminalAnsi => {}
         Ok(handshake) => {
             eprintln!(
-                "herdr: terminal session observe negotiated unsupported encoding {:?}",
+                "herdr：終端機工作階段觀察協商到不支援的編碼 {:?}",
                 handshake.encoding
             );
             std::process::exit(1);

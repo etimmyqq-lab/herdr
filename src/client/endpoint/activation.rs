@@ -46,7 +46,7 @@ impl PendingEndpointActivation {
     ) -> Result<Self, ActivationBeginError> {
         resize_geometry(&resize).ok_or_else(|| {
             ActivationBeginError::Preflight(
-                "endpoint activation did not include a surface resize".to_owned(),
+            "端點啟用未包含介面大小調整".to_owned(),
             )
         })?;
         let source_id = endpoints.active_id().clone();
@@ -73,7 +73,7 @@ impl PendingEndpointActivation {
             .is_some_and(|connection| connection.negotiation.supports_surface_interest());
         if !source_compatible || !target_compatible {
             return Err(ActivationBeginError::Preflight(
-                "endpoint must be updated before it can join the selected surface".into(),
+            "端點必須先更新才能加入選取的介面".into(),
             ));
         }
 
@@ -154,7 +154,7 @@ impl PendingEndpointActivation {
             &crate::protocol::ClientMessage::ClientShellFocus { focused: false },
         ) != EndpointSendOutcome::Sent
         {
-            return Err("source endpoint focus revoke could not be sent".into());
+        return Err("無法傳送來源端點焦點撤銷要求".into());
         }
         let request = surface_interest_request(
             &self.source.boot_id,
@@ -163,7 +163,7 @@ impl PendingEndpointActivation {
         )
         .map_err(|error| error.to_string())?;
         if endpoints.send_to(&self.source.endpoint_id, &request) != EndpointSendOutcome::Sent {
-            return Err("source endpoint release could not be sent".into());
+        return Err("無法傳送來源端點釋放要求".into());
         }
         endpoints.set_surface_active(&self.source.endpoint_id, false);
         Ok(())
@@ -257,7 +257,7 @@ impl PendingEndpointActivation {
         }
         self.rollback(
             endpoints,
-            "endpoint handoff superseded by a newer selection".into(),
+            "端點切換已被較新的選取取代".into(),
             false,
         )
     }
@@ -416,7 +416,7 @@ impl PendingEndpointActivation {
                 };
                 if !focus_result_matches(Some(&requested), &result) {
                     return SurfaceActivationProgress::Rejected {
-                        message: "endpoint focus returned an unexpected result".into(),
+        message: "端點焦點傳回非預期結果".into(),
                         source_release_rejected: false,
                     };
                 }
@@ -446,7 +446,7 @@ impl PendingEndpointActivation {
                 if !self.source_available {
                     return SurfaceActivationProgress::Rejected {
                         message: self.rollback_error.clone().unwrap_or_else(|| {
-                            "the previous endpoint is no longer connected".into()
+        "先前的端點已不再連線".into()
                         }),
                         source_release_rejected: false,
                     };
@@ -618,7 +618,7 @@ impl PendingEndpointActivation {
         endpoints: &mut EndpointRegistry,
     ) -> Result<(), String> {
         resize_geometry(&resize)
-            .ok_or_else(|| "endpoint activation did not include a surface resize".to_owned())?;
+            .ok_or_else(|| "端點啟用未包含介面大小調整".to_owned())?;
         self.resize = resize.clone();
         let restart_effects_fence = match &self.phase {
             ActivationPhase::AwaitingPresentationEffects {
@@ -628,7 +628,7 @@ impl PendingEndpointActivation {
         };
         if let Some((lease, completion)) = restart_effects_fence {
             if endpoints.send_to(&lease.endpoint_id, &resize) != EndpointSendOutcome::Sent {
-                return Err("pending endpoint resize could not be sent".into());
+        return Err("無法傳送待處理端點的大小調整要求".into());
             }
             return self.start_presentation_sync(endpoints, lease, completion);
         }
@@ -648,7 +648,7 @@ impl PendingEndpointActivation {
         };
         if let Some(destination) = destination {
             if endpoints.send_to(destination, &resize) != EndpointSendOutcome::Sent {
-                return Err("pending endpoint resize could not be sent".into());
+        return Err("無法傳送待處理端點的大小調整要求".into());
             }
         }
         Ok(())
@@ -676,7 +676,7 @@ impl PendingEndpointActivation {
                 &crate::protocol::ClientMessage::ClientShellFocus { focused },
             ) != EndpointSendOutcome::Sent
             {
-                return Err("pending endpoint focus baseline could not be sent".into());
+        return Err("無法傳送待處理端點的焦點基準要求".into());
             }
         }
         if let Some((lease, completion)) = restart {
@@ -705,7 +705,7 @@ impl PendingEndpointActivation {
         if let Some(destination) = destination {
             let message = crate::protocol::ClientMessage::ClientShellHostTheme { update };
             if endpoints.send_to(destination, &message) != EndpointSendOutcome::Sent {
-                return Err("pending endpoint host theme could not be sent".into());
+        return Err("無法傳送待處理端點的主機主題設定".into());
             }
         }
         if let Some((lease, completion)) = restart {
@@ -751,7 +751,7 @@ impl PendingEndpointActivation {
                 _ => match self.start_source_restore(endpoints, self.resize.clone()) {
                     Ok(()) => ActivationRollback::Pending,
                     Err(restore_error) => ActivationRollback::Unavailable(format!(
-                        "{error}; source endpoint could not be restored safely: {restore_error}"
+            "{error}；無法安全還原來源端點：{restore_error}"
                     )),
                 },
             };
@@ -784,7 +784,7 @@ impl PendingEndpointActivation {
                 match self.start_target_release(endpoints) {
                     Ok(()) => ActivationRollback::Pending,
                     Err(release_error) => ActivationRollback::Unavailable(format!(
-                        "{error}; target endpoint could not be released safely: {release_error}"
+            "{error}；無法安全釋放目標端點：{release_error}"
                     )),
                 }
             }
@@ -796,7 +796,7 @@ impl PendingEndpointActivation {
                     match self.start_target_release(endpoints) {
                         Ok(()) => ActivationRollback::Pending,
                         Err(release_error) => ActivationRollback::Unavailable(format!(
-                            "{error}; target endpoint could not be released safely: {release_error}"
+            "{error}；無法安全釋放目標端點：{release_error}"
                         )),
                     }
                 } else {
@@ -821,7 +821,7 @@ impl PendingEndpointActivation {
             return match self.start_source_restore(endpoints, self.resize.clone()) {
                 Ok(()) => ActivationRollback::Pending,
                 Err(restore_error) => ActivationRollback::Unavailable(format!(
-                    "{error}; source endpoint could not resume: {restore_error}"
+            "{error}；來源端點無法繼續：{restore_error}"
                 )),
             };
         }
@@ -830,7 +830,7 @@ impl PendingEndpointActivation {
                 if self.source_available {
                     self.start_source_restore(endpoints, self.resize.clone())
                 } else {
-                    Err("the previous endpoint is no longer connected".into())
+        Err("先前的端點已不再連線".into())
                 }
             }
             ActivationPhase::ActivatingTarget { .. } => self.start_target_release(endpoints),
@@ -841,19 +841,19 @@ impl PendingEndpointActivation {
                     &self.target.endpoint_id,
                     std::io::Error::new(
                         std::io::ErrorKind::TimedOut,
-                        "endpoint did not acknowledge surface revocation",
+            "端點未確認介面撤銷",
                     ),
                 );
                 if !self.source_available {
                     return ActivationRollback::Unavailable(format!(
-                        "{error}; the target connection was closed because no presentation owner could be proven"
+            "{error}；由於無法確認呈現擁有者，目標連線已關閉"
                     ));
                 }
                 self.start_source_restore(endpoints, self.resize.clone())
             }
             ActivationPhase::RestoringSource { .. } => {
                 return ActivationRollback::Unavailable(format!(
-                    "{error}; source endpoint could not be restored"
+            "{error}；無法還原來源端點"
                 ));
             }
             ActivationPhase::SynchronizingPresentation { ref lease, .. }
@@ -862,7 +862,7 @@ impl PendingEndpointActivation {
                     self.start_target_release(endpoints)
                 } else {
                     return ActivationRollback::Unavailable(format!(
-                        "{error}; source endpoint presentation could not be synchronized"
+            "{error}；無法同步來源端點呈現"
                     ));
                 }
             }
@@ -870,7 +870,7 @@ impl PendingEndpointActivation {
         match result {
             Ok(()) => ActivationRollback::Pending,
             Err(rollback_error) => ActivationRollback::Unavailable(format!(
-                "{error}; source endpoint could not be restored safely: {rollback_error}"
+            "{error}；無法安全還原來源端點：{rollback_error}"
             )),
         }
     }
@@ -902,7 +902,7 @@ impl PendingEndpointActivation {
                 || !shell.activate_endpoint_projection(&lease.endpoint_id)
             {
                 return Err(
-                    "endpoint became unavailable during presentation synchronization".into(),
+            "端點在呈現同步期間變得不可用".into(),
                 );
             }
             shell.set_pane_surface(surface);
@@ -941,7 +941,7 @@ impl PendingEndpointActivation {
                     error: self
                         .rollback_error
                         .clone()
-                        .unwrap_or_else(|| "endpoint handoff was rolled back".into()),
+            .unwrap_or_else(|| "端點切換已復原".into()),
                     successor: self.successor.clone(),
                 };
                 (
@@ -951,7 +951,7 @@ impl PendingEndpointActivation {
                     completion,
                 )
             }
-            _ => return Err("endpoint activation completed in an invalid phase".into()),
+            _ => return Err("端點啟用在無效階段完成".into()),
         };
         let surface = coherent_completion_surface(
             shell,
@@ -965,7 +965,7 @@ impl PendingEndpointActivation {
         if !shell.endpoint_projection_available(&lease.endpoint_id)
             || !endpoints.set_active(&lease.endpoint_id)
         {
-            return Err("endpoint became unavailable during activation".into());
+            return Err("端點在啟用期間變得不可用".into());
         }
         let activated = shell.activate_endpoint_projection(&lease.endpoint_id);
         debug_assert!(activated, "preflighted endpoint projection must activate");
@@ -1027,7 +1027,7 @@ impl PendingEndpointActivation {
         };
         self.deadline = Instant::now() + ACTIVATION_TIMEOUT;
         if endpoints.send_to(&lease.endpoint_id, &request) != EndpointSendOutcome::Sent {
-            return Err("endpoint presentation synchronization could not be sent".into());
+            return Err("無法傳送端點呈現同步要求".into());
         }
         Ok(())
     }
@@ -1051,7 +1051,7 @@ impl PendingEndpointActivation {
             data: token,
         };
         if endpoints.send_to(&lease.endpoint_id, &message) != EndpointSendOutcome::Sent {
-            return Err("endpoint presentation effects fence could not be sent".into());
+            return Err("無法傳送端點呈現效果柵欄要求".into());
         }
         Ok(())
     }
@@ -1064,7 +1064,7 @@ impl PendingEndpointActivation {
         self.phase = ActivationPhase::ReleasingTargetForRollback { request_id };
         self.deadline = Instant::now() + ACTIVATION_TIMEOUT;
         if endpoints.send_to(&self.target.endpoint_id, &request) != EndpointSendOutcome::Sent {
-            return Err("target endpoint release could not be sent".into());
+            return Err("無法傳送目標端點釋放要求".into());
         }
         Ok(())
     }
@@ -1132,7 +1132,7 @@ impl PendingEndpointActivation {
         let request = focus_request(&self.target.boot_id, request_id, &desired)
             .map_err(|error| error.to_string())?;
         if endpoints.send_to(&self.target.endpoint_id, &request) != EndpointSendOutcome::Sent {
-            return Err("endpoint focus could not be sent".into());
+            return Err("無法傳送端點焦點要求".into());
         }
         Ok(())
     }

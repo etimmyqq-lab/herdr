@@ -401,11 +401,11 @@ impl ClientSettingsSection {
 
     pub(super) fn label(self) -> &'static str {
         match self {
-            Self::Theme => "theme",
-            Self::Indicators => "indicators",
-            Self::Sound => "sound",
-            Self::Toast => "toasts",
-            Self::Integrations => "integrations",
+            Self::Theme => "主題",
+            Self::Indicators => "指示器",
+            Self::Sound => "音效",
+            Self::Toast => "提示",
+            Self::Integrations => "整合",
         }
     }
 }
@@ -445,13 +445,13 @@ pub(super) struct ClientWorktreeOpenEntry {
 impl ClientWorktreeOpenEntry {
     pub(super) fn status_label(&self) -> &'static str {
         if self.open_workspace_id.is_some() {
-            "open"
+            "已開啟"
         } else if self.branch.is_some() {
             ""
         } else if self.is_detached && self.is_linked_worktree {
-            "detached"
+            "已分離"
         } else {
-            "root"
+            "根目錄"
         }
     }
 
@@ -1811,7 +1811,7 @@ impl ClientShellState {
             return false;
         }
         self.copy_feedback = Some(crate::app::state::CopyFeedback {
-            message: "copied to clipboard".to_owned(),
+                message: "已複製到剪貼簿".to_owned(),
         });
         self.copy_feedback_deadline = Some(now + std::time::Duration::from_secs(2));
         true

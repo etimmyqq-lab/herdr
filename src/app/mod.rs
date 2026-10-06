@@ -1026,8 +1026,8 @@ impl App {
             if notify_success {
                 self.state.toast = Some(crate::app::state::ToastNotification {
                     kind: crate::app::state::ToastKind::UpdateInstalled,
-                    title: "reloaded config".to_string(),
-                    context: "using config.toml".to_string(),
+                    title: "設定已重新載入".to_string(),
+                    context: "使用 config.toml".to_string(),
                     position: None,
                     target: None,
                 });
@@ -1038,8 +1038,8 @@ impl App {
             if notify_success {
                 self.state.toast = Some(crate::app::state::ToastNotification {
                     kind: crate::app::state::ToastKind::UpdateInstalled,
-                    title: "reloaded config".to_string(),
-                    context: "with warnings".to_string(),
+                    title: "設定已重新載入".to_string(),
+                    context: "包含警告".to_string(),
                     position: None,
                     target: None,
                 });

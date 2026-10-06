@@ -707,8 +707,8 @@ impl ClientShellState {
             self.push_endpoint_notice(
                 ClientEndpointNoticeKind::Rejected,
                 "navigate_endpoint_inactive",
-                "Confirm workspace first",
-                "Select an available workspace and press Enter before using workspace or pane actions",
+                "先確認工作區",
+                "請先選取可用的工作區並按 Enter，再使用工作區或窗格動作",
             );
             outcome.repaint = true;
             return;

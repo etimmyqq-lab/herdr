@@ -58,7 +58,7 @@ pub(super) fn render_settings_overlay(
         inner.x,
         inner.y,
         inner.width,
-        " settings",
+        " 設定",
         Style::default()
             .fg(palette.text)
             .bg(palette.panel_bg)
@@ -162,9 +162,9 @@ pub(super) fn render_settings_overlay(
             render_choice_section(
                 buffer,
                 content,
-                "agent status indicators",
-                "choose color dots or distinct symbols for each state",
-                &["color dots  ● ● ● ○ ·", "distinct symbols  × ◐ ✓ ○ ·"],
+                "代理狀態指示器",
+                "選擇以彩色圓點或不同符號表示各個狀態",
+                &["彩色圓點  ● ● ● ○ ·", "不同符號  × ◐ ✓ ○ ·"],
                 settings.selected,
                 palette,
                 &mut choice_hits,
@@ -174,9 +174,9 @@ pub(super) fn render_settings_overlay(
             render_choice_section(
                 buffer,
                 content,
-                "sound alerts",
-                "play sounds when agents change state in background",
-                &["on", "off"],
+                "音效提醒",
+                "代理在背景變更狀態時播放音效",
+                &["開啟", "關閉"],
                 settings.selected,
                 palette,
                 &mut choice_hits,
@@ -186,9 +186,9 @@ pub(super) fn render_settings_overlay(
             render_choice_section(
                 buffer,
                 content,
-                "notification popups",
-                "choose where background popup notifications should appear",
-                &["off", "inside herdr", "via terminal", "via system"],
+                "通知彈出視窗",
+                "選擇背景通知彈出視窗顯示的位置",
+                &["關閉", "在 herdr 內", "透過終端機", "透過系統"],
                 settings.selected,
                 palette,
                 &mut choice_hits,
@@ -212,9 +212,9 @@ pub(super) fn render_settings_overlay(
             buffer,
             primary,
             if settings.section == ClientSettingsSection::Integrations {
-                " ↵ install "
+                " ↵ 安裝 "
             } else {
-                " ↵ apply "
+                " ↵ 套用 "
             },
             Style::default()
                 .fg(contrast(palette))
@@ -228,7 +228,7 @@ pub(super) fn render_settings_overlay(
     button(
         buffer,
         close,
-        " esc close ",
+        " esc 關閉 ",
         Style::default()
             .fg(palette.text)
             .bg(palette.surface0)
@@ -239,7 +239,7 @@ pub(super) fn render_settings_overlay(
         inner.x,
         inner.bottom().saturating_sub(2),
         inner.width,
-        " ↑↓ select  tab section",
+        " ↑↓ 選擇  tab 區段",
         Style::default().fg(palette.overlay1).bg(palette.panel_bg),
     );
 
@@ -306,7 +306,7 @@ fn render_integrations(
         area.x,
         area.y,
         area.width,
-        "agent integrations",
+        "代理整合",
         Style::default()
             .fg(palette.text)
             .bg(palette.panel_bg)
@@ -317,7 +317,7 @@ fn render_integrations(
         area.x,
         area.y + 1,
         area.width,
-        "enable session restore and, where supported, direct status updates",
+        "啟用工作階段還原，並在支援時直接更新狀態",
         Style::default().fg(palette.overlay1).bg(palette.panel_bg),
     );
     if settings.loading_integrations {
@@ -326,7 +326,7 @@ fn render_integrations(
             area.x,
             area.y + 3,
             area.width,
-            " loading integrations…",
+            " 正在載入整合…",
             Style::default().fg(palette.overlay1).bg(palette.panel_bg),
         );
         return;
@@ -337,7 +337,7 @@ fn render_integrations(
             area.x,
             area.y + 3,
             area.width,
-            " no integration targets available",
+            " 沒有可用的整合目標",
             Style::default().fg(palette.overlay1).bg(palette.panel_bg),
         );
         return;
@@ -348,15 +348,15 @@ fn render_integrations(
             break;
         }
         let (marker, color, status) = match integration.state {
-            crate::api::schema::IntegrationState::Current => ("✓", palette.green, "installed"),
+            crate::api::schema::IntegrationState::Current => ("✓", palette.green, "已安裝"),
             crate::api::schema::IntegrationState::Outdated => {
-                ("↻", palette.yellow, "update available")
+                ("↻", palette.yellow, "有可用更新")
             }
             crate::api::schema::IntegrationState::NotInstalled if integration.available => {
-                ("+", palette.accent, "available")
+                ("+", palette.accent, "可用")
             }
             crate::api::schema::IntegrationState::NotInstalled => {
-                ("–", palette.overlay0, "not found")
+                ("–", palette.overlay0, "找不到")
             }
         };
         put_text(
@@ -408,7 +408,7 @@ fn render_integrations(
             area.x,
             message_y,
             area.width,
-            " installing…",
+            " 正在安裝…",
             Style::default().fg(palette.overlay1).bg(palette.panel_bg),
         );
     }

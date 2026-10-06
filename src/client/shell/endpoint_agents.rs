@@ -66,7 +66,7 @@ pub(super) fn render_expanded(
         buffer,
         area,
         &rows,
-        agent_view_label.map(|_| " no matching agents"),
+        agent_view_label.map(|_| " 沒有相符的代理"),
         config,
         agent_scroll,
         hits,

@@ -46,16 +46,16 @@ impl SavedSshEndpoint {
         ProfileId::parse(self.id.to_string())?;
         let label = self.label.trim();
         if label.is_empty() {
-            return Err("SSH endpoint label cannot be empty".into());
+            return Err("SSH 端點標籤不可為空白".into());
         }
         if label.len() > MAX_LABEL_BYTES || label.chars().any(char::is_control) {
             return Err(format!(
-                "SSH endpoint label must be at most {MAX_LABEL_BYTES} bytes and contain no control characters"
+            "SSH 端點標籤最多可有 {MAX_LABEL_BYTES} 個位元組，且不得包含控制字元"
             ));
         }
         if self.target.len() > MAX_TARGET_BYTES || self.target.chars().any(char::is_control) {
             return Err(format!(
-                "SSH target must be at most {MAX_TARGET_BYTES} bytes and contain no control characters"
+            "SSH 目標最多可有 {MAX_TARGET_BYTES} 個位元組，且不得包含控制字元"
             ));
         }
         crate::remote::validate_remote_target(&self.target).map(|_| ())?;
@@ -64,7 +64,7 @@ impl SavedSshEndpoint {
             .rsplit_once('@')
             .is_some_and(|(userinfo, _)| userinfo.contains(':'))
         {
-            return Err("SSH target must not contain a password".into());
+            return Err("SSH 目標不得包含密碼".into());
         }
         crate::session::validate_name(&self.session)?;
         Ok(())
@@ -164,7 +164,7 @@ impl EndpointCatalog {
         session: impl Into<String>,
     ) -> Result<ProfileId, String> {
         if self.ssh.len() >= MAX_PROFILES {
-            return Err(format!("at most {MAX_PROFILES} SSH endpoints can be saved"));
+        return Err(format!("最多可儲存 {MAX_PROFILES} 個 SSH 端點"));
         }
         let profile = SavedSshEndpoint::new(label, target, session)?;
         let id = profile.id.clone();

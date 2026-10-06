@@ -344,9 +344,9 @@ impl ClientShellState {
             .as_deref()
             .map(std::path::Path::new)
             .map(crate::workspace::derive_label_from_cwd)
-            .unwrap_or_else(|| "workspace".to_owned());
+            .unwrap_or_else(|| "工作區".to_owned());
         self.overlay = Some(ClientShellOverlay::Rename(ClientRenameOverlay {
-            title: "new workspace",
+            title: "新增工作區",
             input: TextEditor::new(&suggested_name, true),
             target: ClientRenameTarget::NewWorkspace {
                 source_workspace_id,
@@ -371,7 +371,7 @@ impl ClientShellState {
             return;
         };
         self.overlay = Some(ClientShellOverlay::Rename(ClientRenameOverlay {
-            title: "rename workspace",
+            title: "重新命名工作區",
             input: TextEditor::new(&workspace.label, false),
             target: ClientRenameTarget::Workspace { workspace_id },
         }));
@@ -392,7 +392,7 @@ impl ClientShellState {
             + 1)
         .to_string();
         self.overlay = Some(ClientShellOverlay::Rename(ClientRenameOverlay {
-            title: "new tab",
+            title: "新增分頁",
             input: TextEditor::new(&default_name, true),
             target: ClientRenameTarget::NewTab {
                 workspace_id,
@@ -412,7 +412,7 @@ impl ClientShellState {
             return;
         };
         self.overlay = Some(ClientShellOverlay::Rename(ClientRenameOverlay {
-            title: "rename tab",
+            title: "重新命名分頁",
             input: TextEditor::new(&tab.label, false),
             target: ClientRenameTarget::Tab {
                 tab_id: tab.tab_id.clone(),
@@ -433,7 +433,7 @@ impl ClientShellState {
             return;
         };
         self.overlay = Some(ClientShellOverlay::Rename(ClientRenameOverlay {
-            title: "rename pane",
+            title: "重新命名窗格",
             input: TextEditor::new(
                 pane.label.as_deref().unwrap_or_default(),
                 pane.label.is_none(),
@@ -1052,7 +1052,7 @@ impl ClientShellState {
                 })
             {
                 self.receive_endpoint_unavailable(
-                    "Close target changed; try closing the tab again".into(),
+                    "關閉目標已變更；請再次嘗試關閉分頁".into(),
                 );
                 return;
             }
@@ -1136,12 +1136,12 @@ impl ClientShellState {
             })
             .sum::<usize>();
         let panes = if pane_count == 1 {
-            "1 pane".to_owned()
+            "1 個窗格".to_owned()
         } else {
-            format!("{pane_count} panes")
+            format!("{pane_count} 個窗格")
         };
         let scope = if closes_group {
-            format!("{} workspaces, {panes}", group.len())
+            format!("{} 個工作區，{panes}", group.len())
         } else {
             panes
         };
@@ -1151,9 +1151,9 @@ impl ClientShellState {
                 close_group: closes_group,
                 tab_target,
                 title: if closes_group {
-                    "Close worktree group?".to_owned()
+                    "關閉工作樹群組？".to_owned()
                 } else {
-                    "Close workspace?".to_owned()
+                    "關閉工作區？".to_owned()
                 },
                 detail: format!("{} — {scope}", workspace.label),
             },

@@ -288,7 +288,7 @@ impl App {
                 );
                 if let Some(terminal) = self.state.terminals.get_mut(&terminal_id) {
                     terminal.pending_agent_resume_plan = None;
-                    terminal.restore_error = Some(format!("Could not start the saved shell: {err}. Fix the shell configuration and restart this session."));
+                    terminal.restore_error = Some(format!("無法啟動已儲存的 shell：{err}。請修正 shell 設定後重新啟動此工作階段。"));
                     terminal.revision = terminal.revision.saturating_add(1);
                 }
                 return true;

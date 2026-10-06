@@ -63,23 +63,23 @@ pub(super) fn load(path: &Path) -> Option<ClientChromePreferences> {
 pub(super) fn store(path: &Path, preferences: ClientChromePreferences) -> Result<(), String> {
     let parent = path
         .parent()
-        .ok_or_else(|| format!("invalid client shell state path: {}", path.display()))?;
+        .ok_or_else(|| format!("無效的用戶端殼層狀態路徑：{}", path.display()))?;
     std::fs::create_dir_all(parent)
-        .map_err(|error| format!("failed to create client shell state directory: {error}"))?;
+        .map_err(|error| format!("無法建立用戶端殼層狀態目錄：{error}"))?;
     let content = serde_json::to_vec_pretty(&preferences)
-        .map_err(|error| format!("failed to encode client shell state: {error}"))?;
+        .map_err(|error| format!("無法編碼用戶端殼層狀態：{error}"))?;
     let sequence = NEXT_TEMP_FILE.fetch_add(1, Ordering::Relaxed);
     let mut temp_name = path
         .file_name()
-        .ok_or_else(|| format!("invalid client shell state path: {}", path.display()))?
+        .ok_or_else(|| format!("無效的用戶端殼層狀態路徑：{}", path.display()))?
         .to_os_string();
     temp_name.push(format!(".tmp-{}-{sequence}", std::process::id()));
     let temp_path = parent.join(temp_name);
     std::fs::write(&temp_path, content)
-        .map_err(|error| format!("failed to write client shell state: {error}"))?;
+        .map_err(|error| format!("無法寫入用戶端殼層狀態：{error}"))?;
     std::fs::rename(&temp_path, path).map_err(|error| {
         let _ = std::fs::remove_file(&temp_path);
-        format!("failed to replace client shell state: {error}")
+        format!("無法取代用戶端殼層狀態：{error}")
     })
 }
 

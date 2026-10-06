@@ -463,7 +463,7 @@ impl ClientShellState {
         self.endpoints
             .iter()
             .find(|endpoint| &endpoint.endpoint_id == endpoint_id)
-            .map_or("Unknown endpoint", |endpoint| endpoint.label.as_str())
+        .map_or("未知端點", |endpoint| endpoint.label.as_str())
     }
 
     pub(crate) fn active_endpoint_label(&self) -> &str {
@@ -721,18 +721,18 @@ pub(super) fn endpoint_status_presentation(
     palette: &Palette,
 ) -> (&'static str, &'static str, ratatui::style::Color) {
     match status {
-        ClientEndpointStatus::Connecting => ("◐", "connecting", palette.yellow),
-        ClientEndpointStatus::Online => ("●", "online", palette.green),
-        ClientEndpointStatus::Reconnecting => ("◐", "reconnecting", palette.yellow),
-        ClientEndpointStatus::Attention => ("!", "attention", palette.red),
-        ClientEndpointStatus::Disabled => ("·", "disabled", palette.overlay0),
+        ClientEndpointStatus::Connecting => ("◐", "連線中", palette.yellow),
+        ClientEndpointStatus::Online => ("●", "已連線", palette.green),
+        ClientEndpointStatus::Reconnecting => ("◐", "重新連線中", palette.yellow),
+        ClientEndpointStatus::Attention => ("!", "注意", palette.red),
+        ClientEndpointStatus::Disabled => ("·", "已停用", palette.overlay0),
     }
 }
 
 pub(super) fn local_endpoint() -> ClientShellEndpoint {
     ClientShellEndpoint {
         endpoint_id: ClientEndpointId::Local,
-        label: "Local".into(),
+            label: "本機".into(),
         status: ClientEndpointStatus::Online,
         snapshot: None,
         snapshot_generation: None,

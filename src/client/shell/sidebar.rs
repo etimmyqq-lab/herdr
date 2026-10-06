@@ -220,7 +220,7 @@ pub(crate) fn render_sidebar(
         workspace_area.x,
         workspace_area.y,
         workspace_area.width,
-        " spaces",
+        " 工作區",
         Style::default()
             .fg(palette.overlay0)
             .add_modifier(Modifier::BOLD),
@@ -388,7 +388,7 @@ pub(crate) fn render_sidebar(
             workspace_area.x,
             footer_y,
             workspace_area.width,
-            " new",
+        " 新增",
             Style::default().fg(palette.overlay0),
         );
         let attention = super::super::global_menu::global_menu_attention(snapshot);
@@ -416,7 +416,7 @@ pub(crate) fn render_sidebar(
                 start_x.saturating_add(2),
                 footer_y,
                 4,
-                "menu",
+        "選單",
                 Style::default().fg(palette.overlay0),
             );
         } else {
@@ -424,7 +424,7 @@ pub(crate) fn render_sidebar(
                 buffer,
                 workspace_area,
                 footer_y,
-                "menu",
+        "選單",
                 Style::default().fg(palette.overlay0),
             );
         }

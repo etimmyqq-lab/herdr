@@ -28,7 +28,7 @@ impl ClientShellState {
                     )
                 {
                     self.receive_endpoint_unavailable(
-                        "Select an available workspace and press Enter before renaming or closing it"
+                        "請先選取可用的工作區並按 Enter，再重新命名或關閉"
                             .into(),
                     );
                     outcome.repaint = true;
@@ -192,7 +192,7 @@ impl ClientShellState {
                 });
                 let Some(command_id) = command_id else {
                     self.set_endpoint_error(
-                        "custom command is not available on this endpoint; reload configuration",
+                    "此端點無法使用自訂命令；請重新載入設定",
                     );
                     outcome.repaint = true;
                     return;
@@ -363,7 +363,7 @@ impl ClientShellState {
         }
         if !self.endpoint_is_online(&self.active_endpoint_id) {
             let label = self.active_endpoint_label().to_owned();
-            outcome.repaint |= self.receive_endpoint_unavailable(format!("{label} is not ready"));
+                outcome.repaint |= self.receive_endpoint_unavailable(format!("{label} 尚未就緒"));
             return false;
         }
         let method_name = crate::api::api_method_name(&method).to_owned();
@@ -371,9 +371,9 @@ impl ClientShellState {
             outcome.repaint |= self.push_endpoint_notice(
                 ClientEndpointNoticeKind::Unsupported,
                 method_name.clone(),
-                "Action unavailable",
+                        "動作無法使用",
                 format!(
-                    "This server does not support {method_name} yet. Update and restart it to enable this action."
+                        "此伺服器尚不支援 {method_name}。請更新並重新啟動以啟用此動作。"
                 ),
             );
             return false;
@@ -421,7 +421,7 @@ impl ClientShellState {
         self.push_endpoint_notice(
             ClientEndpointNoticeKind::Rejected,
             "paste_rejected",
-            "Paste rejected",
+                    "貼上遭拒",
             message,
         )
     }
@@ -430,7 +430,7 @@ impl ClientShellState {
         self.push_endpoint_notice(
             ClientEndpointNoticeKind::Unavailable,
             message.clone(),
-            "Endpoint unavailable",
+                    "端點無法使用",
             message,
         )
     }
@@ -475,7 +475,7 @@ impl ClientShellState {
             request_id,
             Err(ClientShellEndpointError {
                 code: Some("endpoint_cancelled".into()),
-                message: "This server action was interrupted. Check its state before retrying."
+                    message: "此伺服器動作已中斷。重試前請先檢查其狀態。"
                     .into(),
             }),
         );
@@ -531,25 +531,25 @@ impl ClientShellState {
                     "endpoint_timeout" => (
                         ClientEndpointNoticeKind::Timeout,
                         pending.method_name.clone(),
-                        "Server timed out",
-                        format!("This server did not respond to {}.", pending.method_name),
+                    "伺服器逾時",
+                    format!("此伺服器未回應 {}。", pending.method_name),
                     ),
                     "endpoint_cancelled" => (
                         ClientEndpointNoticeKind::Unavailable,
                         "cancelled".to_owned(),
-                        "Action interrupted",
+                    "動作已中斷",
                         error.message.clone(),
                     ),
                     "server_unavailable" => (
                         ClientEndpointNoticeKind::Unavailable,
                         "server".to_owned(),
-                        "Server unavailable",
+                    "伺服器無法使用",
                         error.message.clone(),
                     ),
                     _ => (
                         ClientEndpointNoticeKind::Rejected,
                         format!("{}:{code}", pending.method_name),
-                        "Action rejected",
+                    "動作遭拒",
                         error.message.clone(),
                     ),
                 };
@@ -638,7 +638,7 @@ impl ClientShellState {
                         (false, Vec::new())
                     }
                     Ok(_) => {
-                        self.set_endpoint_error("endpoint returned an unexpected selection result");
+        self.set_endpoint_error("端點傳回非預期的選取結果");
                         (true, Vec::new())
                     }
                     Err(_) => (true, Vec::new()),
@@ -696,7 +696,7 @@ impl ClientShellState {
                         (false, replay_action(replay))
                     }
                     Ok(_) => {
-                        self.set_endpoint_error("endpoint returned an unexpected link result");
+        self.set_endpoint_error("端點傳回非預期的連結結果");
                         (true, replay_action(replay))
                     }
                     Err(error)
@@ -735,7 +735,7 @@ impl ClientShellState {
                     Ok(crate::api::schema::ResponseResult::PaneCopyMotion { .. }) => (false, false),
                     Ok(_) => {
                         self.set_endpoint_error(
-                            "endpoint returned an unexpected copy-motion result",
+            "端點傳回非預期的複製移動結果",
                         );
                         (true, false)
                     }
@@ -791,7 +791,7 @@ impl ClientShellState {
                     Ok(_) => {
                         self.cancel_deferred_copy_after_search(generation);
                         self.set_endpoint_error(
-                            "endpoint returned an unexpected copy-search result",
+            "端點傳回非預期的複製搜尋結果",
                         );
                         (true, false)
                     }
@@ -808,7 +808,7 @@ impl ClientShellState {
                     Ok(crate::api::schema::ResponseResult::ConfigReload { .. }) => false,
                     Ok(_) => {
                         self.set_endpoint_error(
-                            "endpoint returned an unexpected config reload result",
+            "端點傳回非預期的設定重新載入結果",
                         );
                         true
                     }
