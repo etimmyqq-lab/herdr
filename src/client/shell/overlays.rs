@@ -230,6 +230,10 @@ fn panel(
     let background = Style::default().bg(bg).remove_modifier(Modifier::DIM);
     let border = Style::default().fg(c).bg(bg).remove_modifier(Modifier::DIM);
     for y in a.y..a.bottom() {
+        // A wide glyph ending on the box's left edge would hide the border cell.
+        if a.x > b.area.x && display_width(b[(a.x - 1, y)].symbol()) > 1 {
+            b[(a.x - 1, y)].set_symbol(" ");
+        }
         for x in a.x..a.right() {
             b[(x, y)].set_symbol(" ").set_style(background);
         }

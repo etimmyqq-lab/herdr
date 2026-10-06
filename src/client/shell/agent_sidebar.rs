@@ -374,11 +374,7 @@ pub(super) fn render_agent_row(
 }
 
 fn put_text(buffer: &mut Buffer, x: u16, y: u16, width: u16, text: &str, style: Style) {
-    for (offset, character) in text.chars().take(width as usize).enumerate() {
-        if let Some(cell) = buffer.cell_mut((x + offset as u16, y)) {
-            cell.set_char(character).set_style(style);
-        }
-    }
+    super::render::put_text(buffer, x, y, width, text, style);
 }
 
 fn display_width(text: &str) -> usize {
