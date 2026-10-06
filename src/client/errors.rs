@@ -26,7 +26,7 @@ impl std::fmt::Display for ClientError {
                 let path = client_socket_path();
                 write!(
                     f,
-                    "\nherdr 伺服器是否正在執行？請使用 `herdr server` 啟動。"
+                    "\nherdr_zh 伺服器是否正在執行？請使用 `herdr server` 啟動。"
                 )?;
                 write!(f, "\nSocket 路徑：{}", path.display())
             }
@@ -62,7 +62,7 @@ impl std::fmt::Display for ClientError {
             ClientError::ConnectionLost(err) => {
                 if let Ok(reattach_command) = std::env::var(crate::remote::REATTACH_COMMAND_ENV_VAR)
                 {
-                    write!(f, "與遠端 Herdr 的連線已中斷：{err}")?;
+                    write!(f, "與遠端 herdr_zh 的連線已中斷：{err}")?;
                     write!(f, "\n若遠端伺服器在 SSH 或網路中斷後仍存活，其窗格可能仍在執行。")?;
                     write!(f, "\n執行 `{reattach_command}` 以重新連線")
                 } else {

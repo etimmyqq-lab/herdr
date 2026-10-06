@@ -188,7 +188,7 @@ pub(super) fn render_settings_overlay(
                 content,
                 "提示訊息",
                 "選擇背景提示訊息顯示的位置",
-                &["關閉", "在 herdr 內", "透過終端機", "透過系統"],
+                &["關閉", "在 herdr_zh 內", "透過終端機", "透過系統"],
                 settings.selected,
                 palette,
                 &mut choice_hits,

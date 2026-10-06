@@ -1,6 +1,6 @@
 use ratatui::layout::Rect;
 
-pub(crate) const ONBOARDING_TITLE: &str = "  herdr";
+pub(crate) const ONBOARDING_TITLE: &str = "  herdr_zh";
 pub(crate) const ONBOARDING_SUBTITLE: &str = "  適用於程式開發代理的終端機工作區管理工具";
 pub(crate) const ONBOARDING_DESCRIPTION: [&str; 3] = [
     "  這是一個以滑鼠操作為主的終端機。",

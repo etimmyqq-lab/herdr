@@ -60,7 +60,7 @@ pub fn run_terminal_session_control(
                         return;
                     }
                 }
-                Err(err) => eprintln!("herdr：已忽略終端機工作階段控制輸入：{err}"),
+                Err(err) => eprintln!("herdr_zh：已忽略終端機工作階段控制輸入：{err}"),
             }
         }
         let _ = write_to_server(&mut write_stream, &ClientMessage::Detach);
@@ -84,7 +84,7 @@ fn connect_terminal_session_stream(
     let mut stream = match crate::ipc::connect_local_stream(&socket_path) {
         Ok(stream) => stream,
         Err(err) => {
-            eprintln!("herdr: {}", ClientError::ConnectionFailed(err));
+            eprintln!("herdr_zh: {}", ClientError::ConnectionFailed(err));
             std::process::exit(1);
         }
     };
@@ -105,13 +105,13 @@ fn connect_terminal_session_stream(
         Ok(handshake) if handshake.encoding == RenderEncoding::TerminalAnsi => {}
         Ok(handshake) => {
             eprintln!(
-                "herdr：終端機工作階段觀察協商到不支援的編碼 {:?}",
+                "herdr_zh：終端機工作階段觀察協商到不支援的編碼 {:?}",
                 handshake.encoding
             );
             std::process::exit(1);
         }
         Err(err) => {
-            eprintln!("herdr: {err}");
+            eprintln!("herdr_zh: {err}");
             std::process::exit(1);
         }
     }

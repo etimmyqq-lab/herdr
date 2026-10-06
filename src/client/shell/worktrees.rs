@@ -208,7 +208,7 @@ impl ClientShellState {
                 workspace_id: workspace_id.clone(),
             },
             KeybindAction::RemoveWorktree if !linked => {
-                self.set_endpoint_error("此工作區不是由 Herdr 管理的工作樹工作目錄。");
+                self.set_endpoint_error("此工作區不是由 herdr_zh 管理的工作樹工作目錄。");
                 outcome.repaint = true;
                 return;
             }
@@ -456,7 +456,7 @@ impl ClientShellState {
                     ));
                 } else {
                     self.set_endpoint_error(
-                        "此工作區不是由 Herdr 管理的工作樹工作目錄。",
+                        "此工作區不是由 herdr_zh 管理的工作樹工作目錄。",
                     );
                 }
                 true

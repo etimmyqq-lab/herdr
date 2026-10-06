@@ -247,7 +247,7 @@ pub(super) fn do_handshake(
             return Err(ClientError::Protocol(protocol::FramingError::Io(
                 io::Error::new(
                     io::ErrorKind::InvalidData,
-                    "伺服器不支援穩定版 Herdr 端點協定；請更新此電腦上的版本",
+                    "伺服器不支援穩定版 herdr_zh 端點協定；請更新此電腦上的版本",
                 ),
             )));
         };

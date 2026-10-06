@@ -925,7 +925,7 @@ impl App {
                 != self.startup_per_agent_delay
         {
             diagnostics.push(
-                "session.startup_per_agent_delay_ms changes require restarting Herdr; kept current setting"
+                "session.startup_per_agent_delay_ms 的變更需重新啟動 herdr_zh；已保留目前設定"
                     .into(),
             );
         }
@@ -936,7 +936,7 @@ impl App {
             && config.kitty_graphics_enabled() != self.state.kitty_graphics_enabled
         {
             diagnostics.push(
-                "terminal.kitty_graphics changes require restarting Herdr; kept current setting"
+                "terminal.kitty_graphics 的變更需重新啟動 herdr_zh；已保留目前設定"
                     .into(),
             );
         }

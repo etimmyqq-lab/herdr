@@ -166,7 +166,7 @@ fn register(executable: &std::path::Path, scheme: &str) -> io::Result<()> {
         ));
     }
     let identity = RegistryKey::create(&format!(r"Software\Classes\AppUserModelId\{APP_ID}"))?;
-    identity.set("DisplayName", "Herdr")?;
+    identity.set("DisplayName", "herdr_zh")?;
     // Unpackaged protocol toasts use a stub activator; no COM server is installed.
     identity.set("CustomActivator", ACTIVATOR)?;
     let protocol = RegistryKey::create(&format!(r"Software\Classes\{scheme}"))?;

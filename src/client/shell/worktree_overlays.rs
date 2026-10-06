@@ -344,7 +344,7 @@ pub(super) fn render_worktree_remove_overlay(
         inner.x,
         inner.y + 3,
         inner.width,
-        " 不會刪除分支。Herdr 工作區將會關閉。",
+        " 不會刪除分支。herdr_zh 工作區將會關閉。",
         Style::default().fg(p.text).bg(p.panel_bg),
     );
     if remove.force_confirmation {

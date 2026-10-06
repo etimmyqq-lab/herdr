@@ -72,7 +72,7 @@ impl ClientContextMenuOverlay {
                     item("最大化", Action::Zoom),
                     item(
                         if *right_click_passthrough {
-                            "使用 Herdr 右鍵選單"
+                            "使用 herdr_zh 右鍵選單"
                         } else {
                             "將右鍵點擊傳送至窗格"
                         },
